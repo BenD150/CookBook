@@ -11,9 +11,11 @@
         android:theme="@style/Theme.CookBook">
         <activity
             android:name=".RegisterActivity"
+            android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
+            android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
