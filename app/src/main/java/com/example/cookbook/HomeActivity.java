@@ -17,7 +17,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Button uploadFragment = findViewById(R.id.upload);
+        Button uploadFragment = findViewById(R.id.button_upload);
 
         uploadFragment.setOnClickListener(new View.OnClickListener() {
             @Override
