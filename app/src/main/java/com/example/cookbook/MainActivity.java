@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         });
+
         Log.i("LoginActivity", "Switched to LoginActivity");
 
         registerButton.setOnClickListener(view -> {
