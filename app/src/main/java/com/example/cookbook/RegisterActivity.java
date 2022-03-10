@@ -42,10 +42,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v){
-
         registerUser();
-        //Intent intent = new Intent(this, HomeActivity.class);
-        //startActivity(intent);
     }
 
     private void registerUser(){
@@ -97,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(RegisterActivity.this, "User has been registered successfully!", Toast.LENGTH_LONG).show();
-                                        // TODO: redirect to home screen layout!!!!
+                                        startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
                                     } else {
                                         Toast.makeText(RegisterActivity.this, "Failed to register! Try Again!", Toast.LENGTH_LONG).show();
                                     }
