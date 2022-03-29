@@ -22,7 +22,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         Button uploadFragment = findViewById(R.id.button_upload);
+        Button savedFragment = findViewById(R.id.button_viewsaved);
         TextView homeText = findViewById(R.id.homeText);
+
 
         uploadFragment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,6 +32,15 @@ public class HomeActivity extends AppCompatActivity {
                 // Setting homeText to INVISIBLE so it doesn't show up in each fragment
                 homeText.setVisibility(View.INVISIBLE);
                 replaceFragment(new UploadFragment());
+            }
+        });
+
+        savedFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Setting homeText to INVISIBLE so it doesn't show up in each fragment
+                homeText.setVisibility(View.INVISIBLE);
+                replaceFragment(new SavedFragment());
             }
         });
 
