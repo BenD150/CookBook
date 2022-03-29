@@ -1,19 +1,24 @@
 package com.example.cookbook;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-import android.content.Intent;
-
+import android.widget.ImageView;
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link UploadFragment#newInstance} factory method to
@@ -83,18 +88,35 @@ public class UploadFragment extends Fragment {
 
         // Open the camera if the add image button is clicked
         Button addPhoto = getActivity().findViewById(R.id.addPhoto);
+        ImageView foodImage = getActivity().findViewById(R.id.foodImage);
+
+        // Used this video to help: https://www.youtube.com/watch?v=RaOyw84625w
+
+        if (ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this.getActivity(),
+                    new String[] {
+                            Manifest.permission.CAMERA
+                    }, 100);
+        }
 
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                startActivity(intent);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 100);
             }
         });
+    }
 
-
-
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        ImageView foodImage = getActivity().findViewById(R.id.foodImage);
+        if (requestCode == 100) {
+            // Get Image
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            // Give it to the ImageView
+            foodImage.setImageBitmap(photo);
+        }
     }
 
 
