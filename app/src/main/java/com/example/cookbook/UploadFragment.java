@@ -1,13 +1,18 @@
 package com.example.cookbook;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.content.Intent;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,4 +71,36 @@ public class UploadFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_upload, container, false);
         return view;
     }
+
+    public void onViewCreated (View view, Bundle savedInstanceState) {
+
+        // Return back to the homepage if the Cancel button is clicked
+        Button cancelCreation = getActivity().findViewById(R.id.cancelCreation);
+        cancelCreation.setOnClickListener(view2 -> {
+            Intent intent = new Intent(this.getActivity(), HomeActivity.class);
+            startActivity(intent);
+        });
+
+        // Open the camera if the add image button is clicked
+        Button addPhoto = getActivity().findViewById(R.id.addPhoto);
+
+        addPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivity(intent);
+            }
+        });
+
+
+
+
+    }
+
+
+
+
+
+
+
 }
