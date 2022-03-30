@@ -50,5 +50,17 @@
         <item>40 min.</item>
     </string-array>
 
+    <string-array name="IngredientsAndSteps">
+        <item>Eggs, Strawberries. Mix them together. </item>
+        <item>Chicken, Sauce, Bread Crumbs. Heat up oven and put chicken in.</item>
+        <item>Meat. Cook the steak.</item>
+        <item>Peanut Butter, Jelly, Bread. Put it all together.</item>
+        <item>Cookie Dough, Chocolate Chips. Preheat oven to 350 degrees. Bake for 10 minutes. </item>
+        <item>Noodles, Cajun Sauce. All you have to do is mix them together</item>
+        <item>Rice, Black Beans, Chicken. 1. Put the rice in the pot. 2. Make gumbo</item>
+        <item>Rice, Black Beans, Tortillas, Meat. Put it all in the tortilla to make one just like Chipotle.</item>
+        <item>Lemon Zest, Powdered Sugar, Eggs. Mix together and form into squares.</item>
+        <item>Popcorn, Sugar. Put the sugar on the Popcorn. Ta-da! </item>
+    </string-array>
 
 </resources>

@@ -81,12 +81,14 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
         // Keep in mind that this is missing instructions/steps
         String[] recipeNames = getResources().getStringArray(R.array.recipe_names);
         String[] prepTimes = getResources().getStringArray(R.array.prep_time);
+        String[] instructionsAndSteps = getResources().getStringArray(R.array.IngredientsAndSteps);
         String[] cookTimes = getResources().getStringArray(R.array.cook_time);
 
         for (int i = 0; i < recipeNames.length; i++) {
             recipeModels.add(new RecipeModel(recipeNames[i],
                     "Prep Time: " + prepTimes[i],
                     "Cook Time: " + cookTimes[i],
+                    instructionsAndSteps[i],
                     recipeImages[i]));
         }
     }
