@@ -96,6 +96,14 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
 
     @Override
     public void onRecipeClick(int position) {
-        Intent intent = new Intent(SavedFragment.this, SingleRecipeActivity.class);
+        Intent intent = new Intent(view.getContext(), SingleRecipeActivity.class);
+
+        intent.putExtra("RECIPENAME", recipeModels.get(position).getRecipeName());
+        intent.putExtra("PREPTIME", recipeModels.get(position).getPrepTime());
+        intent.putExtra("COOKTIME", recipeModels.get(position).getCookTime());
+        intent.putExtra("INSTRANDSTEPS", recipeModels.get(position).getInstructionsAndSteps());
+        intent.putExtra("IMAGE", recipeModels.get(position).getImage());
+
+        startActivity(intent);
     }
 }
