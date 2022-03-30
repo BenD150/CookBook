@@ -71,6 +71,9 @@ public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_Recy
             tvPrep = itemView.findViewById(R.id.rPrepTime);
             tvCook = itemView.findViewById(R.id.rCookTime);
 
+
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -83,6 +86,22 @@ public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_Recy
                     }
                 }
             });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if (recyclerViewInterface != null) {
+                        int position = getAdapterPosition();
+
+                        if (position != RecyclerView.NO_POSITION) {
+                            recyclerViewInterface.onRecipeLongClick(position);
+                        }
+                    }
+                    return true;
+                }
+            });
+
+
         }
     }
 }

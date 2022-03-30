@@ -106,4 +106,10 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
 
         startActivity(intent);
     }
+
+    @Override
+    public void onRecipeLongClick(int position) {
+        recipeModels.remove(position);
+        adapter.notifyItemRemoved(position);
+    }
 }
