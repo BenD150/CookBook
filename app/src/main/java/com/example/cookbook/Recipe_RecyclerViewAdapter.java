@@ -48,6 +48,12 @@ public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_Recy
         return recipeModels.size();
     }
 
+    public void filterList(ArrayList<RecipeModel> filteredList) {
+        recipeModels = filteredList;
+        notifyDataSetChanged();
+    }
+
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
