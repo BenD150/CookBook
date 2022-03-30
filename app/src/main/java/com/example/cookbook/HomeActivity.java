@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,15 +22,24 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        Button logoutButton = findViewById(R.id.logoutBtn);
         Button uploadFragment = findViewById(R.id.button_upload);
         Button savedFragment = findViewById(R.id.button_viewsaved);
         TextView homeText = findViewById(R.id.homeText);
 
 
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+            }
+        });
+
         uploadFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Setting homeText to INVISIBLE so it doesn't show up in each fragment
+                // Setting homeText and logout button to INVISIBLE so it doesn't show up in each fragment
+                logoutButton.setVisibility(View.INVISIBLE);
                 homeText.setVisibility(View.INVISIBLE);
                 replaceFragment(new UploadFragment());
             }
@@ -38,7 +48,8 @@ public class HomeActivity extends AppCompatActivity {
         savedFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Setting homeText to INVISIBLE so it doesn't show up in each fragment
+                // Setting homeText and logout button to INVISIBLE so it doesn't show up in each fragment
+                logoutButton.setVisibility(View.INVISIBLE);
                 homeText.setVisibility(View.INVISIBLE);
                 replaceFragment(new SavedFragment());
             }
