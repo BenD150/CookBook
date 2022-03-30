@@ -1,5 +1,6 @@
 package com.example.cookbook;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,12 +18,12 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 
-public class SavedFragment extends Fragment {
+public class SavedFragment extends Fragment implements RecyclerViewInterface{
 
     ArrayList<RecipeModel> recipeModels = new ArrayList<>();
     int[] recipeImages = {R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background
     , R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background};
-    Recipe_RecyclerViewAdapter adapter = new Recipe_RecyclerViewAdapter(this.getContext(), recipeModels);
+    Recipe_RecyclerViewAdapter adapter = new Recipe_RecyclerViewAdapter(this.getContext(), recipeModels, this);
 
     public SavedFragment() {
         // Required empty public constructor
@@ -91,5 +92,9 @@ public class SavedFragment extends Fragment {
     }
 
 
+    @Override
+    public void onRecipeClick(int position) {
+        //Intent intent = new Intent(SavedFragment.this, );
 
+    }
 }

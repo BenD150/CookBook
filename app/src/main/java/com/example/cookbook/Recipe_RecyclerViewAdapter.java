@@ -16,13 +16,16 @@ import java.util.ArrayList;
 
 public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_RecyclerViewAdapter.MyViewHolder> {
 
+    private final RecyclerViewInterface recyclerViewInterface;
     Context context;
     ArrayList<RecipeModel> recipeModels;
 
+
     // Need the data and the context
-    public Recipe_RecyclerViewAdapter(Context context, ArrayList<RecipeModel> recipeModels) {
+    public Recipe_RecyclerViewAdapter(Context context, ArrayList<RecipeModel> recipeModels, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.recipeModels = recipeModels;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
 
@@ -30,7 +33,7 @@ public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_Recy
     @NonNull
     @Override
     public Recipe_RecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new Recipe_RecyclerViewAdapter.MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_row, parent, false));
+        return new Recipe_RecyclerViewAdapter.MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_row, parent, false), recyclerViewInterface);
     }
 
     @Override
@@ -60,16 +63,26 @@ public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_Recy
         TextView tvName, tvPrep, tvCook;
 
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.recipeImage);
             tvName = itemView.findViewById(R.id.boldRName);
             tvPrep = itemView.findViewById(R.id.rPrepTime);
             tvCook = itemView.findViewById(R.id.rCookTime);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (recyclerViewInterface != null) {
+                        int position = getAdapterPosition();
+
+                        if (position != RecyclerView.NO_POSITION) {
+                            recyclerViewInterface.onRecipeClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
-
-
-
 }
