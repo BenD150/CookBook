@@ -9,4 +9,50 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
+    <!-- THIS DATA WILL NEED TO COME FROM FIREBASE! -->
+    <string-array name= "recipe_names">
+        <item>Strawberry Cheesecake</item>
+        <item>Chicken Parm</item>
+        <item>Steak</item>
+        <item>Peanut Butter and Jelly</item>
+        <item>Chocolate Chip Cookies</item>
+        <item>Cajun Pasta</item>
+        <item>Gumbo</item>
+        <item>Burritos</item>
+        <item>Lemon Squares</item>
+        <item>Kettle Corn</item>
+    </string-array>
+
+    <string-array name="prep_time">
+        <item>10 min.</item>
+        <item>20 min.</item>
+        <item>30 min.</item>
+        <item>5 min.</item>
+        <item>10 min.</item>
+        <item>20 min.</item>
+        <item>30 min.</item>
+        <item>10 min.</item>
+        <item>10 min.</item>
+        <item>20 min.</item>
+    </string-array>
+
+    <string-array name="cook_time">
+        <item>20 min.</item>
+        <item>40 min.</item>
+        <item>60 min.</item>
+        <item>10 min.</item>
+        <item>20 min.</item>
+        <item>40 min.</item>
+        <item>60 min.</item>
+        <item>20 min.</item>
+        <item>20 min.</item>
+        <item>40 min.</item>
+    </string-array>
+
+
+
+
+
+
 </resources>
