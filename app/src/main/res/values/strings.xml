@@ -11,7 +11,7 @@
 
 
     <!-- THIS DATA WILL NEED TO COME FROM FIREBASE! -->
-    <string-array name= "recipe_names">
+    <string-array name="recipe_names">
         <item>Strawberry Cheesecake</item>
         <item>Chicken Parm</item>
         <item>Steak</item>
@@ -49,10 +49,6 @@
         <item>20 min.</item>
         <item>40 min.</item>
     </string-array>
-
-
-
-
 
 
 </resources>
