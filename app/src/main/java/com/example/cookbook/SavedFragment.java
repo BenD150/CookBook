@@ -94,7 +94,6 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
 
     @Override
     public void onRecipeClick(int position) {
-        //Intent intent = new Intent(SavedFragment.this, );
-
+        Intent intent = new Intent(SavedFragment.this, )
     }
 }
