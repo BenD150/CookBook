@@ -3,8 +3,11 @@ package com.example.cookbook;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -18,6 +21,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+
+    SharedPreferences sharedpreference;
 
     private EditText editTextEmail, editTextPass;
     private Button signIn;
@@ -36,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextEmail = (EditText) findViewById(R.id.editTextTextEmailAddress2);
         editTextPass = (EditText) findViewById(R.id.editTextTextPassword2);
         signIn.setOnClickListener(this);
+        sharedpreference= getSharedPreferences("myUserPrefs", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -68,7 +74,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if(task.isSuccessful()) {
+
+                    SharedPreferences.Editor editor = sharedpreference.edit();
+                    editor.putString("user_email", email);
+                    editor.commit();
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 } else{
                     Toast.makeText(LoginActivity.this , "Failed to Login!  Please make sure your credentials are correct or Register!", Toast.LENGTH_LONG);
@@ -77,8 +87,4 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
 
     }
-
-
-
-
 }

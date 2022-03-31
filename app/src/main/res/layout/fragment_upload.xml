@@ -21,7 +21,7 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/instructions"
         android:layout_width="122dp"
         android:layout_height="153dp"
         android:layout_alignParentEnd="true"

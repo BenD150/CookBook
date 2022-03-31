@@ -85,7 +85,7 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
         String[] cookTimes = getResources().getStringArray(R.array.cook_time);
 
         for (int i = 0; i < recipeNames.length; i++) {
-            recipeModels.add(new RecipeModel(recipeNames[i],
+            recipeModels.add(new RecipeModel((i+1), recipeNames[i],
                     "Prep Time: " + prepTimes[i],
                     "Cook Time: " + cookTimes[i],
                     instructionsAndSteps[i],
