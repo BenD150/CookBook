@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,9 +39,7 @@ public class ChangeUserActivity extends AppCompatActivity {
         Button submitBtn = findViewById(R.id.submitBtn);
 
 
-        String userEmail = currentEmail.getText().toString();
-        String userPW = currentPW.getText().toString();
-        String newUserPW = newPW.getText().toString();
+
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +52,9 @@ public class ChangeUserActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String userEmail = currentEmail.getText().toString();
+                String userPW = currentPW.getText().toString();
+                String newUserPW = newPW.getText().toString();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 AuthCredential credential = EmailAuthProvider.getCredential(userEmail, userPW);
                 user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
