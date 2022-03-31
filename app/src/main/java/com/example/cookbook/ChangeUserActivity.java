@@ -64,7 +64,7 @@ public class ChangeUserActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(ChangeUserActivity.this, "Password has been registered successfully!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(ChangeUserActivity.this, "Password has been changed successfully!", Toast.LENGTH_LONG).show();
                                     startActivity(new Intent(ChangeUserActivity.this, HomeActivity.class));
                                 } else {
                                     Toast.makeText(ChangeUserActivity.this, "Failed to change Password.  Please make sure you old password matches the original! Try Again!", Toast.LENGTH_LONG).show();

@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/logoutBtn"
+            android:id="@+id/deleteBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="216dp"
@@ -30,6 +30,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Change PW" />
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="Log Out" />
+
     </FrameLayout>
 
     <TextView
@@ -73,4 +81,5 @@
         app:layout_constraintEnd_toStartOf="@+id/button_search"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button_upload" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

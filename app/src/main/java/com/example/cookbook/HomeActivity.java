@@ -20,9 +20,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.core.view.Change;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -38,11 +35,12 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Button deleteBtn = findViewById(R.id.logoutBtn);
+        Button deleteBtn = findViewById(R.id.deleteBtn);
         Button changePWBtn = findViewById(R.id.ChangePW);
         Button uploadFragment = findViewById(R.id.button_upload);
         Button savedFragment = findViewById(R.id.button_viewsaved);
         TextView homeText = findViewById(R.id.homeText);
+        Button logoutBtn = findViewById(R.id.logout);
 
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +92,7 @@ public class HomeActivity extends AppCompatActivity {
                 deleteBtn.setVisibility(View.INVISIBLE);
                 homeText.setVisibility(View.INVISIBLE);
                 changePWBtn.setVisibility(View.INVISIBLE);
+                logoutBtn.setVisibility(View.INVISIBLE);
                 replaceFragment(new UploadFragment());
             }
         });
@@ -105,9 +104,21 @@ public class HomeActivity extends AppCompatActivity {
                 deleteBtn.setVisibility(View.INVISIBLE);
                 homeText.setVisibility(View.INVISIBLE);
                 changePWBtn.setVisibility(View.INVISIBLE);
+                logoutBtn.setVisibility(View.INVISIBLE);
                 replaceFragment(new SavedFragment());
             }
         });
+
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(HomeActivity.this, MainActivity.class));
+            }
+        });
+
+
 
     }
 
