@@ -11,9 +11,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class HomeActivity extends AppCompatActivity {
+
+    DAOUser dao = new DAOUser();
 
 
     @Override
@@ -31,6 +37,15 @@ public class HomeActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String myUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                dao.delete("X9mezjRY7cRdVkO1TRA24eleju42").addOnSuccessListener(success ->
+                {
+                    Toast.makeText(HomeActivity.this, "Account Successfully Deleted", Toast.LENGTH_SHORT).show();
+                }).addOnFailureListener(error ->
+                {
+                    Toast.makeText(HomeActivity.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                });
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             }
         });

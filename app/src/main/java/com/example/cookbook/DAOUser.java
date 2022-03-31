@@ -18,4 +18,8 @@ public class DAOUser {
     public Task<Void> update(String key, HashMap<String, Object> hashMap){
         return databaseReference.child(key).updateChildren(hashMap);
     }
+
+    public Task<Void> delete(String key) {
+        return databaseReference.child(key).removeValue();
+    }
 }
