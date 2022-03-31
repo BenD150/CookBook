@@ -97,6 +97,8 @@ public class UploadFragment extends Fragment {
                 dao.add(newRecipe).addOnSuccessListener(success ->
                 {
                     Toast.makeText(getActivity(), "Recipe Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                    startActivity(intent);
                 }).addOnFailureListener(error ->
                 {
                     Toast.makeText(getActivity(), "" + error.getMessage(), Toast.LENGTH_SHORT).show();
