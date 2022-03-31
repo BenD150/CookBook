@@ -19,11 +19,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity {
 
-    DAOUser dao = new DAOUser();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        DAOUser dao = new DAOUser();
+
+
         Log.i("HomeActivity", "onCreate has been called for HomeActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -37,9 +38,8 @@ public class HomeActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String myUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                dao.delete("X9mezjRY7cRdVkO1TRA24eleju42").addOnSuccessListener(success ->
+                dao.delete(myUser).addOnSuccessListener(success ->
                 {
                     Toast.makeText(HomeActivity.this, "Account Successfully Deleted", Toast.LENGTH_SHORT).show();
                 }).addOnFailureListener(error ->

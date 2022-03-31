@@ -12,7 +12,7 @@ public class DAOUser {
 
     public DAOUser(){
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        databaseReference = db.getReference(User.class.getSimpleName());
+        databaseReference = db.getReference(Users.class.getSimpleName());
     }
 
     public Task<Void> update(String key, HashMap<String, Object> hashMap){
