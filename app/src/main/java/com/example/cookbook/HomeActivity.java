@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.core.view.Change;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -37,13 +38,14 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Button logoutButton = findViewById(R.id.logoutBtn);
+        Button deleteBtn = findViewById(R.id.logoutBtn);
+        Button changePWBtn = findViewById(R.id.ChangePW);
         Button uploadFragment = findViewById(R.id.button_upload);
         Button savedFragment = findViewById(R.id.button_viewsaved);
         TextView homeText = findViewById(R.id.homeText);
 
 
-        logoutButton.setOnClickListener(new View.OnClickListener() {
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -78,12 +80,20 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        changePWBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, ChangeUserActivity.class));
+            }
+        });
+
         uploadFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Setting homeText and logout button to INVISIBLE so it doesn't show up in each fragment
-                logoutButton.setVisibility(View.INVISIBLE);
+                deleteBtn.setVisibility(View.INVISIBLE);
                 homeText.setVisibility(View.INVISIBLE);
+                changePWBtn.setVisibility(View.INVISIBLE);
                 replaceFragment(new UploadFragment());
             }
         });
@@ -92,8 +102,9 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Setting homeText and logout button to INVISIBLE so it doesn't show up in each fragment
-                logoutButton.setVisibility(View.INVISIBLE);
+                deleteBtn.setVisibility(View.INVISIBLE);
                 homeText.setVisibility(View.INVISIBLE);
+                changePWBtn.setVisibility(View.INVISIBLE);
                 replaceFragment(new SavedFragment());
             }
         });
