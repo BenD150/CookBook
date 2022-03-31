@@ -75,7 +75,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-
                     SharedPreferences.Editor editor = sharedpreference.edit();
                     editor.putString("user_email", email);
                     editor.commit();

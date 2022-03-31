@@ -1,5 +1,6 @@
 package com.example.cookbook;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -13,11 +14,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class HomeActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String myUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 dao.delete(myUser).addOnSuccessListener(success ->
                 {
@@ -46,7 +55,26 @@ public class HomeActivity extends AppCompatActivity {
                 {
                     Toast.makeText(HomeActivity.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+
+                AuthCredential credential = EmailAuthProvider.getCredential("user@example.com", "password1234");
+                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        //deletes the user when reauthentication
+                        user.delete().addOnSuccessListener(success ->
+                        {
+                            Toast.makeText(HomeActivity.this, "Account Successfully Deleted", Toast.LENGTH_SHORT).show();
+                        }).addOnFailureListener(error ->
+                        {
+                            Toast.makeText(HomeActivity.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+                        startActivity(new Intent(HomeActivity.this, MainActivity.class));
+                    }
+                });
+
+
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+
             }
         });
 
