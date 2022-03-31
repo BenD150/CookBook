@@ -11,7 +11,7 @@ public class RecipeModel {
     // Empty constructor used for Firebase
     public RecipeModel(){}
 
-    public RecipeModel(int recipeID, String recipeName, String prepTime, String cookTime, String instructionsAndSteps, int image) {
+    public RecipeModel(String recipeName, String prepTime, String cookTime, String instructionsAndSteps, int image) {
         this.recipeName = recipeName;
         this.prepTime = prepTime;
         this.cookTime = cookTime;

@@ -93,7 +93,7 @@ public class UploadFragment extends Fragment {
         uploadRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RecipeModel newRecipe = new RecipeModel(1, recipeName.getText().toString(), prepTime.getText().toString(), cookTime.getText().toString(), instrAndSteps.getText().toString(), foodImage.getId());
+                RecipeModel newRecipe = new RecipeModel(recipeName.getText().toString(), prepTime.getText().toString(), cookTime.getText().toString(), instrAndSteps.getText().toString(), foodImage.getId());
                 dao.add(newRecipe).addOnSuccessListener(success ->
                 {
                     Toast.makeText(getActivity(), "Recipe Uploaded Successfully", Toast.LENGTH_SHORT).show();
