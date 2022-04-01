@@ -15,6 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 
@@ -79,6 +85,8 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
     private void setUpRecipeModels() {
         // This is where we will pull the recipe data from Firebase. Right now, I have it hard coded
         // Keep in mind that this is missing instructions/steps
+
+        /*
         String[] recipeNames = getResources().getStringArray(R.array.recipe_names);
         String[] prepTimes = getResources().getStringArray(R.array.prep_time);
         String[] instructionsAndSteps = getResources().getStringArray(R.array.IngredientsAndSteps);
@@ -91,6 +99,33 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
                     instructionsAndSteps[i],
                     recipeImages[i]));
         }
+        */
+
+        // establish firebase connection and set a reference point to root node
+        FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference();
+
+        // go down to RecipeModel child
+        reference.child("RecipeModel").addValueEventListener(new ValueEventListener() {
+            //this method will be invoked anytime the database be changed
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+               Iterable<DataSnapshot> children = snapshot.getChildren();
+                for (DataSnapshot child: children) {
+
+                    // retrieve the recipe as a recipeModel object
+                    RecipeModel temp = child.getValue(RecipeModel.class);
+
+                    // add it to the arraylist for display
+                    recipeModels.add(temp);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
     }
 
 
