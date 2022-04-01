@@ -3,7 +3,7 @@ package com.example.cookbook;
 import java.util.ArrayList;
 
 public class UploadedRecipe {
-    private String dish, ingredients, directions, description, rcpID;
+    private String dish, ingredients, directions, description, rcpID, madeBy;
     private double rating;
 
     // Constructor

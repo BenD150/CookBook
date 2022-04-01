@@ -40,6 +40,7 @@ public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_Recy
     public void onBindViewHolder(@NonNull Recipe_RecyclerViewAdapter.MyViewHolder holder, int position) {
         // Assign values to the views we created in the recycler_view_row layout file
         holder.tvName.setText(recipeModels.get(position).getRecipeName());
+        System.out.println("Holder binded viewholder recipename as " + recipeModels.get(position).getRecipeName());
         holder.tvPrep.setText(recipeModels.get(position).getPrepTime());
         holder.tvCook.setText(recipeModels.get(position).getCookTime());
         holder.imageView.setImageResource(recipeModels.get(position).getImage());
@@ -48,6 +49,7 @@ public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_Recy
     @Override
     public int getItemCount() {
         // Get total number of items
+        System.out.println("Item count is returning " + recipeModels.size());
         return recipeModels.size();
     }
 

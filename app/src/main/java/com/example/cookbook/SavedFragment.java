@@ -45,6 +45,7 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
         view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_saved, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.mRecyclerView);
         setUpRecipeModels();
+        System.out.println("Just before setting up adapter, recipe models length is " + recipeModels.size());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -101,6 +102,9 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
         }
         */
 
+
+
+
         // establish firebase connection and set a reference point to root node
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference();
@@ -117,15 +121,18 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
                     RecipeModel temp = child.getValue(RecipeModel.class);
 
                     // add it to the arraylist for display
-                    recipeModels.add(temp);
+                    recipeModels.add(new RecipeModel(temp.getRecipeName(), "Prep Time: " + temp.getPrepTime(),
+                            "Cook Time: " + temp.getCookTime(), temp.getInstructionsAndSteps(), recipeImages[0]));
+                    adapter.notifyDataSetChanged();
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-
+                System.out.println(error.getMessage());
             }
         });
+
     }
 
 
