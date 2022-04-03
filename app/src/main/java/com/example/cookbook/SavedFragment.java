@@ -148,7 +148,7 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
         intent.putExtra("COOKTIME", recipeModels.get(position).getCookTime());
         intent.putExtra("INSTRANDSTEPS", recipeModels.get(position).getInstructionsAndSteps());
         intent.putExtra("IMAGE", recipeModels.get(position).getImage());
-        intent.putExtra("UID", recipeModels.get(position).getUid());
+        intent.putExtra("CREATOR", recipeModels.get(position).getCreator());
 
         startActivity(intent);
     }
