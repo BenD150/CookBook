@@ -139,8 +139,10 @@ public class UploadFragment extends Fragment {
                 // https://stackoverflow.com/questions/37390864/how-to-delete-from-firebase-realtime-database
                 // Get user's email address and add uploaded recipe to them
 
-                String userEmail = sharedpreference.getString("user_email", "");
-                System.out.println("User Email is " + userEmail);
+                //adds the recipe to the users saved recipes
+                String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("savedRecipes").push().setValue(newRecipe);
+
 
 
 
