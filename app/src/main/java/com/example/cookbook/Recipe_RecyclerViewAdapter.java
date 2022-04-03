@@ -88,22 +88,6 @@ public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_Recy
                     }
                 }
             });
-
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    if (recyclerViewInterface != null) {
-                        int position = getAdapterPosition();
-
-                        if (position != RecyclerView.NO_POSITION) {
-                            recyclerViewInterface.onRecipeLongClick(position);
-                        }
-                    }
-                    return true;
-                }
-            });
-
-
         }
     }
 }

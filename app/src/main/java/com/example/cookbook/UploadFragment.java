@@ -6,15 +6,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,9 +24,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.ktx.Firebase;
+
 public class UploadFragment extends Fragment {
 
     SharedPreferences sharedpreference;
+    int highestID = 0;
 
     public UploadFragment() {
         // Required empty public constructor
@@ -90,10 +97,11 @@ public class UploadFragment extends Fragment {
         EditText cookTime = getActivity().findViewById(R.id.cookTime);
         EditText instrAndSteps = getActivity().findViewById(R.id.instructions);
         ImageView foodImage = getActivity().findViewById(R.id.foodImage);
+
         uploadRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RecipeModel newRecipe = new RecipeModel(recipeName.getText().toString(), prepTime.getText().toString(), cookTime.getText().toString(), instrAndSteps.getText().toString(), foodImage.getId());
+                RecipeModel newRecipe = new RecipeModel(recipeName.getText().toString(), prepTime.getText().toString(), cookTime.getText().toString(), instrAndSteps.getText().toString(), foodImage.getId(), "");
                 dao.add(newRecipe).addOnSuccessListener(success ->
                 {
                     Toast.makeText(getActivity(), "Recipe Uploaded Successfully", Toast.LENGTH_SHORT).show();
@@ -104,13 +112,11 @@ public class UploadFragment extends Fragment {
                     Toast.makeText(getActivity(), "" + error.getMessage(), Toast.LENGTH_SHORT).show();
                 });
 
+                // https://stackoverflow.com/questions/37390864/how-to-delete-from-firebase-realtime-database
                 // Get user's email address and add uploaded recipe to them
 
                 String userEmail = sharedpreference.getString("user_email", "");
                 System.out.println("User Email is " + userEmail);
-
-
-
             }
         });
     }

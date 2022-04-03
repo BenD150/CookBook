@@ -30,6 +30,7 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
     int[] recipeImages = {R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background
     , R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background};
     Recipe_RecyclerViewAdapter adapter = new Recipe_RecyclerViewAdapter(this.getContext(), recipeModels, this);
+    String uid = "";
 
     public SavedFragment() {
         // Required empty public constructor
@@ -119,10 +120,11 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
 
                     // retrieve the recipe as a recipeModel object
                     RecipeModel temp = child.getValue(RecipeModel.class);
+                    System.out.println("The key is " + child.getKey());
 
                     // add it to the arraylist for display
                     recipeModels.add(new RecipeModel(temp.getRecipeName(), "Prep Time: " + temp.getPrepTime(),
-                            "Cook Time: " + temp.getCookTime(), temp.getInstructionsAndSteps(), recipeImages[0]));
+                            "Cook Time: " + temp.getCookTime(), temp.getInstructionsAndSteps(), recipeImages[0], child.getKey()));
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -140,18 +142,19 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
     public void onRecipeClick(int position) {
         Intent intent = new Intent(view.getContext(), SingleRecipeActivity.class);
 
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("RecipeModel");
         intent.putExtra("RECIPENAME", recipeModels.get(position).getRecipeName());
         intent.putExtra("PREPTIME", recipeModels.get(position).getPrepTime());
         intent.putExtra("COOKTIME", recipeModels.get(position).getCookTime());
         intent.putExtra("INSTRANDSTEPS", recipeModels.get(position).getInstructionsAndSteps());
         intent.putExtra("IMAGE", recipeModels.get(position).getImage());
+        intent.putExtra("UID", recipeModels.get(position).getUid());
 
         startActivity(intent);
     }
 
-    @Override
-    public void onRecipeLongClick(int position) {
-        recipeModels.remove(position);
-        adapter.notifyItemRemoved(position);
-    }
+
+
+
+
 }
