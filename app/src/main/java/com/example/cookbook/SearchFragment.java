@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,17 +22,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
-
-public class SavedFragment extends Fragment implements RecyclerViewInterface{
+public class SearchFragment extends Fragment implements RecyclerViewInterface {
 
     ArrayList<RecipeModel> recipeModels = new ArrayList<>();
     int[] recipeImages = {R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background
-    , R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background};
+            , R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background};
     Recipe_RecyclerViewAdapter adapter = new Recipe_RecyclerViewAdapter(this.getContext(), recipeModels, this);
     String uid = "";
 
-    public SavedFragment() {
+    public SearchFragment() {
         // Required empty public constructor
     }
 
@@ -41,17 +40,14 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i("SavedFragment", "onCreateView has been called for SavedFragment");
-        // Inflate the layout for this fragment
-        //view = inflater.inflate(R.layout.fragment_saved, container, false);
-        view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_saved, container, false);
-        RecyclerView recyclerView = view.findViewById(R.id.mRecyclerView);
+
+        view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_search, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.mRecyclerView2);
         setUpRecipeModels();
-        System.out.println("Just before setting up adapter, recipe models length is " + recipeModels.size());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        EditText nameSearch = view.findViewById(R.id.nameSearch);
+        EditText nameSearch = view.findViewById(R.id.nameSearch2);
         nameSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -68,15 +64,16 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
                 filter(editable.toString());
             }
         });
-
         return view;
     }
+
 
     private void filter(String text) {
         ArrayList<RecipeModel> filteredList = new ArrayList<>();
 
         for (RecipeModel recipe: recipeModels) {
-            if (recipe.getRecipeName().toLowerCase().contains(text.toLowerCase())) {
+            if (recipe.getRecipeName().toLowerCase().contains(text.toLowerCase())
+                    || recipe.getInstructionsAndSteps().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(recipe);
             }
         }
@@ -88,15 +85,14 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
     private void setUpRecipeModels() {
         // establish firebase connection and set a reference point to root node
 
-        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference savedRecipes = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference searchRecipes = FirebaseDatabase.getInstance().getReference();
 
-        // go down to RecipeModel child
-        savedRecipes.child("Users").child(currentUserId).child("savedRecipes").addValueEventListener(new ValueEventListener() {
+        // go down to RecipeModel child. The pulling of data is slightly different from Saved Recipes
+        searchRecipes.child("RecipeModel").addValueEventListener(new ValueEventListener() {
             //this method will be invoked anytime the database be changed
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-               Iterable<DataSnapshot> children = snapshot.getChildren();
+                Iterable<DataSnapshot> children = snapshot.getChildren();
                 for (DataSnapshot child: children) {
 
                     // retrieve the recipe as a recipeModel object
@@ -118,7 +114,6 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
 
     }
 
-
     @Override
     public void onRecipeClick(int position) {
         Intent intent = new Intent(view.getContext(), SingleRecipeActivity.class);
@@ -134,9 +129,6 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
 
         startActivity(intent);
     }
-
-
-
 
 
 }

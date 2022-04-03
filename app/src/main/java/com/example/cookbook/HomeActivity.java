@@ -39,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
         Button changePWBtn = findViewById(R.id.ChangePW);
         Button uploadFragment = findViewById(R.id.button_upload);
         Button savedFragment = findViewById(R.id.button_viewsaved);
+        Button searchFragment = findViewById(R.id.button_search);
         TextView homeText = findViewById(R.id.homeText);
         Button logoutBtn = findViewById(R.id.logout);
 
@@ -106,6 +107,18 @@ public class HomeActivity extends AppCompatActivity {
                 changePWBtn.setVisibility(View.INVISIBLE);
                 logoutBtn.setVisibility(View.INVISIBLE);
                 replaceFragment(new SavedFragment());
+            }
+        });
+
+        searchFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Setting homeText and logout button to INVISIBLE so it doesn't show up in each fragment
+                deleteBtn.setVisibility(View.INVISIBLE);
+                homeText.setVisibility(View.INVISIBLE);
+                changePWBtn.setVisibility(View.INVISIBLE);
+                logoutBtn.setVisibility(View.INVISIBLE);
+                replaceFragment(new SearchFragment());
             }
         });
 
