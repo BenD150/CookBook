@@ -38,9 +38,6 @@ public class ChangeUserActivity extends AppCompatActivity {
         Button cancelBtn = findViewById(R.id.cancelBtn);
         Button submitBtn = findViewById(R.id.submitBtn);
 
-
-
-
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

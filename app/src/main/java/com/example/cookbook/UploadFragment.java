@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +38,7 @@ public class UploadFragment extends Fragment {
 
     SharedPreferences sharedpreference;
     int highestID = 0;
+    String creator;
 
     public UploadFragment() {
         // Required empty public constructor
@@ -45,6 +49,26 @@ public class UploadFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         Log.i("UploadFragment", "onCreate has been called for UploadFragment");
         super.onCreate(savedInstanceState);
+
+        //Find the current user
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference dbReference = database.getReference();
+        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        //gets the current users info
+        dbReference.child("Users").child(user).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //establishes the creator of the recipe to be uploaded
+                creator = snapshot.child("userName").getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     View view;
@@ -101,7 +125,7 @@ public class UploadFragment extends Fragment {
         uploadRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RecipeModel newRecipe = new RecipeModel(recipeName.getText().toString(), prepTime.getText().toString(), cookTime.getText().toString(), instrAndSteps.getText().toString(), foodImage.getId(), "");
+                RecipeModel newRecipe = new RecipeModel(recipeName.getText().toString(), prepTime.getText().toString(), cookTime.getText().toString(), instrAndSteps.getText().toString(), foodImage.getId(), creator);
                 dao.add(newRecipe).addOnSuccessListener(success ->
                 {
                     Toast.makeText(getActivity(), "Recipe Uploaded Successfully", Toast.LENGTH_SHORT).show();
@@ -117,6 +141,9 @@ public class UploadFragment extends Fragment {
 
                 String userEmail = sharedpreference.getString("user_email", "");
                 System.out.println("User Email is " + userEmail);
+
+
+
             }
         });
     }
