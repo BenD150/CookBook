@@ -19,6 +19,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView registerUser;
@@ -80,13 +83,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
 
+
         mAuth.createUserWithEmailAndPassword(sEmail, sPassword)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            ArrayList<String> savedRecipe = new ArrayList<>();
+                            ArrayList<String> uploadedRecipe = new ArrayList<>();
                             Users user = new Users(sUsername, sEmail);
-
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {

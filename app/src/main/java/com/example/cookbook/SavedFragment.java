@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -107,11 +108,12 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
 
 
         // establish firebase connection and set a reference point to root node
-        FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference();
+
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference savedRecipes = FirebaseDatabase.getInstance().getReference();
 
         // go down to RecipeModel child
-        reference.child("RecipeModel").addValueEventListener(new ValueEventListener() {
+        savedRecipes.child("Users").child(currentUserId).child("savedRecipes").addValueEventListener(new ValueEventListener() {
             //this method will be invoked anytime the database be changed
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -124,7 +126,7 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
 
                     // add it to the arraylist for display
                     recipeModels.add(new RecipeModel(temp.getRecipeName(), "Prep Time: " + temp.getPrepTime(),
-                            "Cook Time: " + temp.getCookTime(), temp.getInstructionsAndSteps(), recipeImages[0], child.getKey()));
+                            "Cook Time: " + temp.getCookTime(), temp.getInstructionsAndSteps(), recipeImages[0], child.getKey(), child.getKey()));
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -149,6 +151,7 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
         intent.putExtra("INSTRANDSTEPS", recipeModels.get(position).getInstructionsAndSteps());
         intent.putExtra("IMAGE", recipeModels.get(position).getImage());
         intent.putExtra("CREATOR", recipeModels.get(position).getCreator());
+        intent.putExtra("UID", recipeModels.get(position).getUid());
 
         startActivity(intent);
     }

@@ -10,6 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class SingleRecipeActivity extends AppCompatActivity {
 
     @Override
@@ -47,7 +51,13 @@ public class SingleRecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                dao.delete(uid).addOnSuccessListener(success ->
+
+                String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                DatabaseReference savedRecipes = FirebaseDatabase.getInstance().getReference();
+
+                // go down to RecipeModel child
+
+                savedRecipes.child("Users").child(currentUserId).child("savedRecipes").child(uid).removeValue().addOnSuccessListener(success ->
                 {
                     Toast.makeText(getApplicationContext(), "Recipe Removed Successfully!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
