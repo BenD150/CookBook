@@ -38,8 +38,8 @@ public class SearchRecipeActivity extends AppCompatActivity {
         ImageView recipeImageView = findViewById(R.id.recipeImage3);
 
         recipeNameView.setText(recipeName);
-        String newPrep = prepTime + " min.";
-        String newCook = cookTime + " min.";
+        String newPrep = "Prep Time: " + prepTime + " min.";
+        String newCook = "Cook Time: " + cookTime + " min.";
         prepTimeView.setText(newPrep);
         cookTimeView.setText(newCook);
         instrAndStepsView.setText(ingrAndSteps);

@@ -99,8 +99,8 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
                     System.out.println("The key is " + child.getKey());
 
                     // add it to the arraylist for display
-                    recipeModels.add(new RecipeModel(temp.getRecipeName(), "Prep Time: " + temp.getPrepTime(),
-                            "Cook Time: " + temp.getCookTime(), temp.getInstructionsAndSteps(), recipeImages[0], temp.getCreator(), child.getKey()));
+                    recipeModels.add(new RecipeModel(temp.getRecipeName(), temp.getPrepTime(), temp.getCookTime(),
+                            temp.getInstructionsAndSteps(), recipeImages[0], temp.getCreator(), child.getKey()));
                     adapter.notifyDataSetChanged();
                 }
             }

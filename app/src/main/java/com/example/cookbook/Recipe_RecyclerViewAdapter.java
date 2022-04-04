@@ -41,8 +41,10 @@ public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_Recy
         // Assign values to the views we created in the recycler_view_row layout file
         holder.tvName.setText(recipeModels.get(position).getRecipeName());
         System.out.println("Holder binded viewholder recipename as " + recipeModels.get(position).getRecipeName());
-        holder.tvPrep.setText(recipeModels.get(position).getPrepTime());
-        holder.tvCook.setText(recipeModels.get(position).getCookTime());
+        String newPrepTime = "Prep Time: " + recipeModels.get(position).getPrepTime() + " min.";
+        String newCookTime = "Cook Time: " + recipeModels.get(position).getCookTime() + " min.";
+        holder.tvPrep.setText(newPrepTime);
+        holder.tvCook.setText(newCookTime);
         holder.imageView.setImageResource(recipeModels.get(position).getImage());
     }
 
