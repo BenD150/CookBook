@@ -1,12 +1,16 @@
 package com.example.cookbook;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,6 +30,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,12 +40,24 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.ktx.Firebase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.util.UUID;
+
+@SuppressWarnings("deprecation")
 public class UploadFragment extends Fragment {
 
     SharedPreferences sharedpreference;
     int highestID = 0;
     String creator;
+    private ImageView foodImage;
+    public Uri imageUri;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+
 
     public UploadFragment() {
         // Required empty public constructor
@@ -49,6 +68,9 @@ public class UploadFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         Log.i("UploadFragment", "onCreate has been called for UploadFragment");
         super.onCreate(savedInstanceState);
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
 
         //Find the current user
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -68,7 +90,6 @@ public class UploadFragment extends Fragment {
 
             }
         });
-
     }
 
     View view;
@@ -101,8 +122,11 @@ public class UploadFragment extends Fragment {
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, 1);
+                 */
+                choosePicture();
             }
         });
 
@@ -120,7 +144,7 @@ public class UploadFragment extends Fragment {
         EditText prepTime = getActivity().findViewById(R.id.prepTime);
         EditText cookTime = getActivity().findViewById(R.id.cookTime);
         EditText instrAndSteps = getActivity().findViewById(R.id.instructions);
-        ImageView foodImage = getActivity().findViewById(R.id.foodImage);
+        foodImage = getActivity().findViewById(R.id.foodImage);
 
         uploadRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +164,8 @@ public class UploadFragment extends Fragment {
                 // Get user's email address and add uploaded recipe to them
 
                 //adds the recipe to the users saved recipes
-
+                String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("savedRecipes").push().setValue(newRecipe);
 
 
 
@@ -149,21 +174,68 @@ public class UploadFragment extends Fragment {
         });
     }
 
+    private void choosePicture(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+    }
+
+    @SuppressWarnings("deprecation")
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        /*
         ImageView foodImage = getActivity().findViewById(R.id.foodImage);
-        if (requestCode == 100) {
+        if (requestCode == 1) {
             // Get Image
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             // Give it to the ImageView
             foodImage.setImageBitmap(photo);
         }
+         */
+
+        if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
+            imageUri = data.getData();
+            foodImage.setImageURI(imageUri);
+            uploadPicture();
+        }
     }
 
+    private void uploadPicture() {
 
+        final ProgressDialog pd = new ProgressDialog(getActivity());
+        pd.setTitle("Uploading Picture...");
+        pd.show();
 
+        final String randomKey = UUID.randomUUID().toString();
+        StorageReference riversRef = storageReference.child("images/" + randomKey);
 
-
+        riversRef.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        pd.dismiss();
+                        Snackbar.make(getActivity().findViewById(android.R.id.content), "Image Uploaded.", Snackbar.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                        Toast.makeText(getActivity().getApplicationContext(), "Failed to Upload.", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                        double progressPercent = (100.00 * snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
+                        pd.setMessage("Percentage: " + (int)progressPercent + "%");
+                    }
+                });
+    }
 
 
 }
