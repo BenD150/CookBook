@@ -140,8 +140,7 @@ public class UploadFragment extends Fragment {
                 // Get user's email address and add uploaded recipe to them
 
                 //adds the recipe to the users saved recipes
-                String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("savedRecipes").push().setValue(newRecipe);
+
 
 
 

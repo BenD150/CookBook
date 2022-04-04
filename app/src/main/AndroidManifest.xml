@@ -15,7 +15,10 @@
             android:name=".ChangeUserActivity"
             android:exported="false" />
         <activity
-            android:name=".SingleRecipeActivity"
+            android:name=".SavedRecipeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchRecipeActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"

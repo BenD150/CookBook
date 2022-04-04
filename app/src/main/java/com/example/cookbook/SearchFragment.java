@@ -22,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class SearchFragment extends Fragment implements RecyclerViewInterface {
 
@@ -101,7 +100,7 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
 
                     // add it to the arraylist for display
                     recipeModels.add(new RecipeModel(temp.getRecipeName(), "Prep Time: " + temp.getPrepTime(),
-                            "Cook Time: " + temp.getCookTime(), temp.getInstructionsAndSteps(), recipeImages[0], child.getKey(), child.getKey()));
+                            "Cook Time: " + temp.getCookTime(), temp.getInstructionsAndSteps(), recipeImages[0], temp.getCreator(), child.getKey()));
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -116,13 +115,13 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onRecipeClick(int position) {
-        Intent intent = new Intent(view.getContext(), SingleRecipeActivity.class);
+        Intent intent = new Intent(view.getContext(), SearchRecipeActivity.class);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("RecipeModel");
         intent.putExtra("RECIPENAME", recipeModels.get(position).getRecipeName());
         intent.putExtra("PREPTIME", recipeModels.get(position).getPrepTime());
         intent.putExtra("COOKTIME", recipeModels.get(position).getCookTime());
-        intent.putExtra("INSTRANDSTEPS", recipeModels.get(position).getInstructionsAndSteps());
+        intent.putExtra("INGRANDSTEPS", recipeModels.get(position).getInstructionsAndSteps());
         intent.putExtra("IMAGE", recipeModels.get(position).getImage());
         intent.putExtra("CREATOR", recipeModels.get(position).getCreator());
         intent.putExtra("UID", recipeModels.get(position).getUid());

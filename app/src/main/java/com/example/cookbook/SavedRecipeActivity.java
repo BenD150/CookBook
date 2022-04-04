@@ -14,36 +14,37 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SingleRecipeActivity extends AppCompatActivity {
+public class SavedRecipeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_recipe);
+        setContentView(R.layout.activity_saved_recipe);
 
         String recipeName = getIntent().getStringExtra("RECIPENAME");
         String prepTime = getIntent().getStringExtra("PREPTIME");
         String cookTime = getIntent().getStringExtra("COOKTIME");
-        String instrAndSteps = getIntent().getStringExtra("INSTRANDSTEPS");
+        String instrAndSteps = getIntent().getStringExtra("INGRANDSTEPS");
         int recipeImage = getIntent().getIntExtra("IMAGE", 0);
         String uid = getIntent().getStringExtra("UID");
-        System.out.println("Our UID is " + uid);
+        String creator = getIntent().getStringExtra("CREATOR");
 
         Button removeRecipe = findViewById(R.id.removeBtn);
 
-        TextView recipeNameView = findViewById(R.id.recipeName2);
-        TextView prepTimeView = findViewById(R.id.prepTime2);
-        TextView cookTimeView = findViewById(R.id.cookTime2);
-        TextView instrAndStepsView = findViewById(R.id.instrAndSteps);
+        TextView recipeNameView = findViewById(R.id.removeRecipeName);
+        TextView prepTimeView = findViewById(R.id.removePrepTime);
+        TextView cookTimeView = findViewById(R.id.removeCookTime);
+        TextView instrAndStepsView = findViewById(R.id.removeIngrAndSteps);
+        TextView creatorView = findViewById(R.id.creator2);
         ImageView recipeImageView = findViewById(R.id.recipeImage2);
 
-
-        DAORecipeModel dao = new DAORecipeModel();
-
         recipeNameView.setText(recipeName);
-        prepTimeView.setText(prepTime);
-        cookTimeView.setText(cookTime);
+        String newPrep = prepTime + " min.";
+        String newCook = cookTime + " min.";
+        prepTimeView.setText(newPrep);
+        cookTimeView.setText(newCook);
         instrAndStepsView.setText(instrAndSteps);
+        creatorView.setText("Created by: " + creator);
         recipeImageView.setImageResource(recipeImage);
 
 

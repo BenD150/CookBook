@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/myBlue">
 
+    <TextView
+        android:id="@+id/creator"
+        android:layout_width="126dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginBottom="24dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/saveBtnNew"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchRecipeName"
+        app:layout_constraintVertical_bias="0.977" />
+
     <ImageView
-        android:id="@+id/recipeImage2"
+        android:id="@+id/recipeImage3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="78dp"
         android:layout_marginEnd="9dp"
         android:layout_marginBottom="38dp"
-        app:layout_constraintBottom_toTopOf="@+id/instrAndSteps"
-        app:layout_constraintEnd_toStartOf="@+id/cookTime2"
+        app:layout_constraintBottom_toTopOf="@+id/searchIngrAndSteps"
+        app:layout_constraintEnd_toStartOf="@+id/searchCookTime"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView
-        android:id="@+id/recipeName2"
+        android:id="@+id/searchRecipeName"
         android:layout_width="178dp"
         android:layout_height="28dp"
         android:layout_marginTop="80dp"
@@ -31,14 +46,14 @@
         android:textColor="@color/white"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/prepTime2"
+        app:layout_constraintBottom_toTopOf="@+id/searchPrepTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/recipeImage2"
+        app:layout_constraintStart_toEndOf="@+id/recipeImage3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/prepTime2"
+        android:id="@+id/searchPrepTime"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -46,26 +61,26 @@
         android:layout_marginBottom="2dp"
         android:text="TextView"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/cookTime2"
+        app:layout_constraintBottom_toTopOf="@+id/searchCookTime"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/recipeImage2"
-        app:layout_constraintTop_toBottomOf="@+id/recipeName2" />
+        app:layout_constraintStart_toEndOf="@+id/recipeImage3"
+        app:layout_constraintTop_toBottomOf="@+id/searchRecipeName" />
 
     <TextView
-        android:id="@+id/cookTime2"
+        android:id="@+id/searchCookTime"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="11dp"
         android:layout_marginBottom="5dp"
         android:text="TextView"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/description"
+        app:layout_constraintBottom_toTopOf="@+id/searchDescription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/recipeImage2"
-        app:layout_constraintTop_toBottomOf="@+id/prepTime2" />
+        app:layout_constraintStart_toEndOf="@+id/recipeImage3"
+        app:layout_constraintTop_toBottomOf="@+id/searchPrepTime" />
 
     <TextView
-        android:id="@+id/instrAndSteps"
+        android:id="@+id/searchIngrAndSteps"
         android:layout_width="291dp"
         android:layout_height="169dp"
         android:layout_marginStart="10dp"
@@ -76,33 +91,33 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipeImage2" />
+        app:layout_constraintTop_toBottomOf="@+id/recipeImage3" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/searchDescription"
         android:layout_width="287dp"
         android:layout_height="0dp"
         android:layout_marginStart="13dp"
         android:layout_marginTop="194dp"
         android:layout_marginEnd="13dp"
         android:layout_marginBottom="186dp"
-        android:text="Instructions/Steps"
+        android:text="Ingredients/Steps"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/removeBtn"
+        app:layout_constraintBottom_toTopOf="@+id/saveBtnNew"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/removeBtn"
+        android:id="@+id/saveBtnNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="1dp"
-        android:text="Remove"
+        android:layout_marginStart="208dp"
+        android:layout_marginBottom="8dp"
+        android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description" />
+        app:layout_constraintTop_toBottomOf="@+id/searchDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>
