@@ -35,8 +35,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Button deleteBtn = findViewById(R.id.deleteBtn);
-        Button changePWBtn = findViewById(R.id.ChangePW);
+        Button settingsBtn = findViewById(R.id.settingsBtn);
         Button uploadFragment = findViewById(R.id.button_upload);
         Button savedFragment = findViewById(R.id.button_viewsaved);
         Button searchFragment = findViewById(R.id.button_search);
@@ -44,55 +43,12 @@ public class HomeActivity extends AppCompatActivity {
         Button logoutBtn = findViewById(R.id.logout);
 
 
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String myUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                dao.delete(myUser).addOnSuccessListener(success ->
-                {
-                    Toast.makeText(HomeActivity.this, "Account Successfully Deleted", Toast.LENGTH_SHORT).show();
-                }).addOnFailureListener(error ->
-                {
-                    Toast.makeText(HomeActivity.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
-                });
-
-                AuthCredential credential = EmailAuthProvider.getCredential("user@example.com", "password1234");
-                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        //deletes the user when reauthentication
-                        user.delete().addOnSuccessListener(success ->
-                        {
-                            Toast.makeText(HomeActivity.this, "Account Successfully Deleted", Toast.LENGTH_SHORT).show();
-                        }).addOnFailureListener(error ->
-                        {
-                            Toast.makeText(HomeActivity.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
-                        startActivity(new Intent(HomeActivity.this, MainActivity.class));
-                    }
-                });
-
-
-                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-
-            }
-        });
-
-        changePWBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, ChangeUserActivity.class));
-            }
-        });
-
         uploadFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Setting homeText and logout button to INVISIBLE so it doesn't show up in each fragment
-                deleteBtn.setVisibility(View.INVISIBLE);
+                settingsBtn.setVisibility(View.INVISIBLE);
                 homeText.setVisibility(View.INVISIBLE);
-                changePWBtn.setVisibility(View.INVISIBLE);
                 logoutBtn.setVisibility(View.INVISIBLE);
                 replaceFragment(new UploadFragment());
             }
@@ -102,9 +58,8 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Setting homeText and logout button to INVISIBLE so it doesn't show up in each fragment
-                deleteBtn.setVisibility(View.INVISIBLE);
+                settingsBtn.setVisibility(View.INVISIBLE);
                 homeText.setVisibility(View.INVISIBLE);
-                changePWBtn.setVisibility(View.INVISIBLE);
                 logoutBtn.setVisibility(View.INVISIBLE);
                 replaceFragment(new SavedFragment());
             }
@@ -114,11 +69,17 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Setting homeText and logout button to INVISIBLE so it doesn't show up in each fragment
-                deleteBtn.setVisibility(View.INVISIBLE);
+                settingsBtn.setVisibility(View.INVISIBLE);
                 homeText.setVisibility(View.INVISIBLE);
-                changePWBtn.setVisibility(View.INVISIBLE);
                 logoutBtn.setVisibility(View.INVISIBLE);
                 replaceFragment(new SearchFragment());
+            }
+        });
+
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
             }
         });
 

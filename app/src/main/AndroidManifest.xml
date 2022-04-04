@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CookBook">
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChangeUserActivity"
             android:exported="false" />
         <activity

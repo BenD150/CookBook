@@ -18,25 +18,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/deleteBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="216dp"
-            android:text="Delete Account"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/ChangePW"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Change PW" />
-
-        <Button
             android:id="@+id/logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="10dp"
             android:text="Log Out" />
+
+        <Button
+            android:id="@+id/settingsBtn"
+            android:layout_width="121dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="190dp"
+            android:layout_marginTop="10dp"
+            android:text="Settings" />
 
     </FrameLayout>
 
