@@ -105,7 +105,7 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
 
                     // add it to the arraylist for display
                     recipeModels.add(new RecipeModel(temp.getRecipeName(), temp.getPrepTime(),
-                            temp.getCookTime(), temp.getInstructionsAndSteps(), recipeImages[0], savedRecipes.child("Users").child(currentUserId).child("userName").getKey(), child.getKey()));
+                            temp.getCookTime(), temp.getInstructionsAndSteps(), recipeImages[0], temp.getCreator(), child.getKey()));
                     adapter.notifyDataSetChanged();
                 }
             }
