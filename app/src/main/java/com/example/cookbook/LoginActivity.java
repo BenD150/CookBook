@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         Button signIn = findViewById(R.id.login2);
+        Button forgotPW = findViewById(R.id.forgotPWBtn);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -42,6 +43,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextPass = (EditText) findViewById(R.id.editTextTextPassword2);
         signIn.setOnClickListener(this);
         sharedpreference= getSharedPreferences("myUserPrefs", Context.MODE_PRIVATE);
+
+        forgotPW.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, ForgotPWActivity.class));
+            }
+        });
     }
 
     @Override
@@ -84,6 +92,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
+
+
 
     }
 }

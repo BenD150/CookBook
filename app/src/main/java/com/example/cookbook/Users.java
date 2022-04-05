@@ -26,25 +26,5 @@ public class Users {
         uploadedRecipe = new ArrayList<String>();
     }
 
-    // Save recipe to current user's list
-    public void saveRecipe(String recipeID){
-        this.savedRecipe.add(recipeID);
-    }
-
-    // Upload action, create the uploadedrecipe object
-    public void uploadRecipe(String dish, String ingredients, String directions, String description){
-        UploadedRecipe recipe = new UploadedRecipe(dish, ingredients, directions, description);
-        this.uploadedRecipe.add(recipe.getRcpID());
-    }
-
-    // This is the method that check if a certain recipe is created by THIS user.
-    public boolean isCreator (@NonNull UploadedRecipe recipe){
-        boolean indicator = false;
-        if(this.uploadedRecipe.contains(recipe.getRcpID())){
-            indicator = true;
-        }
-        return indicator;
-    }
-
 
 }

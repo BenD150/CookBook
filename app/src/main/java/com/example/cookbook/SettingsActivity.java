@@ -25,7 +25,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         DAOUser dao = new DAOUser();
 
-        Button forgotPW = findViewById(R.id.forgotPW);
         Button changePW = findViewById(R.id.changePW);
         Button deleteAcct = findViewById(R.id.deleteAcct);
         Button backBtn = findViewById(R.id.backBtn);
