@@ -162,7 +162,6 @@ public class UploadFragment extends Fragment {
                     Toast.makeText(getActivity(), "" + error.getMessage(), Toast.LENGTH_SHORT).show();
                 });
 
-                // https://stackoverflow.com/questions/37390864/how-to-delete-from-firebase-realtime-database
                 // Get user's email address and add uploaded recipe to them
 
                 //adds the recipe to the users saved recipes

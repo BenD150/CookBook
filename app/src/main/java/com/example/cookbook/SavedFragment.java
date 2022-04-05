@@ -46,7 +46,6 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
                              Bundle savedInstanceState) {
         Log.i("SavedFragment", "onCreateView has been called for SavedFragment");
         // Inflate the layout for this fragment
-        //view = inflater.inflate(R.layout.fragment_saved, container, false);
         view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_saved, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.mRecyclerView);
         setUpRecipeModels();
@@ -103,7 +102,6 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
 
                     // retrieve the recipe as a recipeModel object
                     RecipeModel temp = child.getValue(RecipeModel.class);
-                    System.out.println("The key is " + child.getKey());
                     // add it to the arraylist for display
                     recipeModels.add(new RecipeModel(temp.getRecipeName(), temp.getPrepTime(),
                             temp.getCookTime(), temp.getInstructionsAndSteps(), temp.getImage(), temp.getCreator(), child.getKey()));

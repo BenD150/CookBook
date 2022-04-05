@@ -46,25 +46,4 @@ public class RecipeModel {
         return uid;
     }
 
-
-    // Setters
-    public void setRecipeName(String recipeName) {
-        this.recipeName = recipeName;
-    }
-    public void setPrepTime(String prepTime) {
-        this.prepTime = prepTime;
-    }
-    public void setCookTime(String cookTime) {
-        this.cookTime = cookTime;
-    }
-    public void setInstructionsAndSteps(String instructionsAndSteps) {
-        this.instructionsAndSteps = instructionsAndSteps;
-    }
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
-    public void setImage(String image) {
-        this.image = image;
-    }
-
 }
