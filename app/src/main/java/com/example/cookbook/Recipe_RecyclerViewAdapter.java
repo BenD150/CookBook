@@ -52,7 +52,7 @@ public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_Recy
         String newCookTime = "Cook Time: " + recipeModels.get(position).getCookTime() + " min.";
         holder.tvPrep.setText(newPrepTime);
         holder.tvCook.setText(newCookTime);
-        Glide.with(context).load(recipeModels.get(position).getImage()).override(108, 108).into(holder.imageView);
+        Glide.with(context).load(recipeModels.get(position).getImage()).override(150, 150).into(holder.imageView);
         //holder.imageView.setImageResource(recipeModels.get(position).getImage());
     }
 
