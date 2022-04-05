@@ -30,8 +30,6 @@ import java.util.ArrayList;
 public class SearchFragment extends Fragment implements RecyclerViewInterface {
 
     ArrayList<RecipeModel> recipeModels = new ArrayList<>();
-    int[] recipeImages = {R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background
-            , R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background};
     Recipe_RecyclerViewAdapter adapter = new Recipe_RecyclerViewAdapter(this.getContext(), recipeModels, this);
     String uid = "";
 
@@ -74,12 +72,10 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
     private void filter(String text) {
         ArrayList<RecipeModel> filteredList = new ArrayList<>();
         for (RecipeModel recipe: recipeModels) {
-            if (recipe.getRecipeName().toLowerCase().contains(text.toLowerCase())
-                    || recipe.getInstructionsAndSteps().toLowerCase().contains(text.toLowerCase())) {
+            if (recipe.getRecipeName().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(recipe);
             }
         }
-
         adapter.filterList(filteredList);
     }
 
@@ -116,18 +112,19 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
 
     }
 
+
+
     @Override
     public void onRecipeClick(int position) {
         Intent intent = new Intent(view.getContext(), SearchRecipeActivity.class);
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("RecipeModel");
-        intent.putExtra("RECIPENAME", recipeModels.get(position).getRecipeName());
-        intent.putExtra("PREPTIME", recipeModels.get(position).getPrepTime());
-        intent.putExtra("COOKTIME", recipeModels.get(position).getCookTime());
-        intent.putExtra("INGRANDSTEPS", recipeModels.get(position).getInstructionsAndSteps());
-        intent.putExtra("IMAGE", recipeModels.get(position).getImage());
-        intent.putExtra("CREATOR", recipeModels.get(position).getCreator());
-        intent.putExtra("UID", recipeModels.get(position).getUid());
+        intent.putExtra("RECIPENAME", adapter.getItem(position).getRecipeName());
+        intent.putExtra("PREPTIME", adapter.getItem(position).getPrepTime());
+        intent.putExtra("COOKTIME", adapter.getItem(position).getCookTime());
+        intent.putExtra("INGRANDSTEPS", adapter.getItem(position).getInstructionsAndSteps());
+        intent.putExtra("IMAGE", adapter.getItem(position).getImage());
+        intent.putExtra("CREATOR", adapter.getItem(position).getCreator());
+        intent.putExtra("UID", adapter.getItem(position).getUid());
 
         startActivity(intent);
     }

@@ -68,6 +68,10 @@ public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_Recy
         notifyDataSetChanged();
     }
 
+    public RecipeModel getItem(int position) {
+        return recipeModels.get(position);
+    }
+
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -91,7 +95,6 @@ public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_Recy
                 public void onClick(View view) {
                     if (recyclerViewInterface != null) {
                         int position = getAdapterPosition();
-
                         if (position != RecyclerView.NO_POSITION) {
                             recyclerViewInterface.onRecipeClick(position);
                         }
