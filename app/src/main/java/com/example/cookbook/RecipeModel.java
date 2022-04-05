@@ -8,14 +8,14 @@ public class RecipeModel {
     String instructionsAndSteps;
     String creator;
     String uid;
-    int image;
+    String image;
 
 
 
     // Empty constructor used for Firebase
     public RecipeModel(){}
 
-    public RecipeModel(String recipeName, String prepTime, String cookTime, String instructionsAndSteps, int image, String creator, String uid) {
+    public RecipeModel(String recipeName, String prepTime, String cookTime, String instructionsAndSteps, String image, String creator, String uid) {
         this.recipeName = recipeName;
         this.prepTime = prepTime;
         this.cookTime = cookTime;
@@ -36,7 +36,7 @@ public class RecipeModel {
     public String getCookTime() {
         return cookTime;
     }
-    public int getImage() {
+    public String getImage() {
         return image;
     }
     public String getCreator() {
@@ -63,7 +63,7 @@ public class RecipeModel {
     public void setCreator(String creator) {
         this.creator = creator;
     }
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

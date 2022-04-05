@@ -57,6 +57,7 @@ public class UploadFragment extends Fragment {
     public Uri imageUri;
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    String fileName = "";
 
 
     public UploadFragment() {
@@ -149,7 +150,8 @@ public class UploadFragment extends Fragment {
         uploadRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RecipeModel newRecipe = new RecipeModel(recipeName.getText().toString(), prepTime.getText().toString(), cookTime.getText().toString(), instrAndSteps.getText().toString(), foodImage.getId(), creator, "");
+                String totalFile = "https://firebasestorage.googleapis.com/v0/b/cookbook-app-834e9.appspot.com/o/images%2F" + fileName + "?alt=media&token=";
+                RecipeModel newRecipe = new RecipeModel(recipeName.getText().toString(), prepTime.getText().toString(), cookTime.getText().toString(), instrAndSteps.getText().toString(), totalFile, creator, "");
                 dao.add(newRecipe).addOnSuccessListener(success ->
                 {
                     Toast.makeText(getActivity(), "Recipe Uploaded Successfully", Toast.LENGTH_SHORT).show();
@@ -211,6 +213,7 @@ public class UploadFragment extends Fragment {
         pd.show();
 
         final String randomKey = UUID.randomUUID().toString();
+        fileName = randomKey;
         StorageReference riversRef = storageReference.child("images/" + randomKey);
 
         riversRef.putFile(imageUri)

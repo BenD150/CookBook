@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,7 +26,7 @@ public class SavedRecipeActivity extends AppCompatActivity {
         String prepTime = getIntent().getStringExtra("PREPTIME");
         String cookTime = getIntent().getStringExtra("COOKTIME");
         String instrAndSteps = getIntent().getStringExtra("INGRANDSTEPS");
-        int recipeImage = getIntent().getIntExtra("IMAGE", 0);
+        String recipeImage = getIntent().getStringExtra("IMAGE");
         String uid = getIntent().getStringExtra("UID");
         String creator = getIntent().getStringExtra("CREATOR");
 
@@ -45,7 +46,7 @@ public class SavedRecipeActivity extends AppCompatActivity {
         cookTimeView.setText(newCook);
         instrAndStepsView.setText(instrAndSteps);
         creatorView.setText("Created by: " + creator);
-        recipeImageView.setImageResource(recipeImage);
+        Glide.with(getApplicationContext()).load(recipeImage).override(108, 108).into(recipeImageView);
 
 
         removeRecipe.setOnClickListener(new View.OnClickListener() {

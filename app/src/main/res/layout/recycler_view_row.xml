@@ -28,42 +28,41 @@
                 android:id="@+id/recipeImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_launcher_background" />
 
             <TextView
                 android:id="@+id/boldRName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="44dp"
                 android:text="Strawberry Cheesecake"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/recipeImage"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/rPrepTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="9dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="76dp"
                 android:text="Prep Time: 10 min."
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toTopOf="@+id/rCookTime"
-                app:layout_constraintStart_toStartOf="@+id/rCookTime" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/boldRName" />
 
             <TextView
                 android:id="@+id/rCookTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:layout_marginBottom="17dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="72dp"
                 android:text="Cook Time: 20 min."
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/recipeImage" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rPrepTime" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

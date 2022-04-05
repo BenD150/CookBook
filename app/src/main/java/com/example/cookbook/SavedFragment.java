@@ -1,6 +1,7 @@
 package com.example.cookbook;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,13 +16,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.net.URI;
 import java.util.ArrayList;
 
 
@@ -102,10 +107,9 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
                     // retrieve the recipe as a recipeModel object
                     RecipeModel temp = child.getValue(RecipeModel.class);
                     System.out.println("The key is " + child.getKey());
-
                     // add it to the arraylist for display
                     recipeModels.add(new RecipeModel(temp.getRecipeName(), temp.getPrepTime(),
-                            temp.getCookTime(), temp.getInstructionsAndSteps(), recipeImages[0], temp.getCreator(), child.getKey()));
+                            temp.getCookTime(), temp.getInstructionsAndSteps(), temp.getImage(), temp.getCreator(), child.getKey()));
                     adapter.notifyDataSetChanged();
                 }
             }

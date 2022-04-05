@@ -1,6 +1,7 @@
 package com.example.cookbook;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,12 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -69,7 +73,6 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
 
     private void filter(String text) {
         ArrayList<RecipeModel> filteredList = new ArrayList<>();
-
         for (RecipeModel recipe: recipeModels) {
             if (recipe.getRecipeName().toLowerCase().contains(text.toLowerCase())
                     || recipe.getInstructionsAndSteps().toLowerCase().contains(text.toLowerCase())) {
@@ -100,7 +103,7 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
 
                     // add it to the arraylist for display
                     recipeModels.add(new RecipeModel(temp.getRecipeName(), temp.getPrepTime(), temp.getCookTime(),
-                            temp.getInstructionsAndSteps(), recipeImages[0], temp.getCreator(), child.getKey()));
+                            temp.getInstructionsAndSteps(), temp.getImage(), temp.getCreator(), child.getKey()));
                     adapter.notifyDataSetChanged();
                 }
             }

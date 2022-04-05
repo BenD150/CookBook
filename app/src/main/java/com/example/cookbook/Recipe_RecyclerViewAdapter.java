@@ -2,6 +2,7 @@ package com.example.cookbook;
 
 import android.content.Context;
 import android.media.Image;
+import android.net.Uri;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +13,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 
 public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_RecyclerViewAdapter.MyViewHolder> {
 
     private final RecyclerViewInterface recyclerViewInterface;
-    Context context;
+    private Context context;
     ArrayList<RecipeModel> recipeModels;
 
 
@@ -33,6 +39,7 @@ public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_Recy
     @NonNull
     @Override
     public Recipe_RecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
         return new Recipe_RecyclerViewAdapter.MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_row, parent, false), recyclerViewInterface);
     }
 
@@ -45,7 +52,8 @@ public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_Recy
         String newCookTime = "Cook Time: " + recipeModels.get(position).getCookTime() + " min.";
         holder.tvPrep.setText(newPrepTime);
         holder.tvCook.setText(newCookTime);
-        holder.imageView.setImageResource(recipeModels.get(position).getImage());
+        Glide.with(context).load(recipeModels.get(position).getImage()).override(108, 108).into(holder.imageView);
+        //holder.imageView.setImageResource(recipeModels.get(position).getImage());
     }
 
     @Override
