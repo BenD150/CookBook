@@ -128,6 +128,7 @@ public class UploadFragment extends Fragment {
             public void onClick(View view) {
 
                 // Help from Joel's comment: https://stackoverflow.com/questions/21388586/get-uri-from-camera-intent-in-android
+                // On physical Android device, must ask for permission to read and write from external storage
 
                 String fileName = UUID.randomUUID().toString();;
                 ContentValues values = new ContentValues();
