@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/creator2"
-        android:layout_width="155dp"
-        android:layout_height="71dp"
+        android:layout_width="157dp"
+        android:layout_height="31dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="148dp"
         android:text="TextView"
@@ -105,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="204dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="56dp"
         android:text="Remove"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

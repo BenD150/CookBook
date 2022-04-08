@@ -4,6 +4,8 @@ import static android.app.Activity.RESULT_OK;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -45,6 +47,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
 import java.util.UUID;
 
 @SuppressWarnings("deprecation")
@@ -123,11 +126,19 @@ public class UploadFragment extends Fragment {
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
+
+                // Help from Joel's comment: https://stackoverflow.com/questions/21388586/get-uri-from-camera-intent-in-android
+
+                String fileName = UUID.randomUUID().toString();;
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Images.Media.TITLE, fileName);
+                values.put(MediaStore.Images.Media.DESCRIPTION, "Image captured by camera");
+                imageUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(intent, 1);
-                 */
-                choosePicture();
+
+                //choosePicture();
             }
         });
 
@@ -186,24 +197,37 @@ public class UploadFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
+        // Help from Joel's comment: https://stackoverflow.com/questions/21388586/get-uri-from-camera-intent-in-android
+
         super.onActivityResult(requestCode, resultCode, data);
 
-        /*
+
         ImageView foodImage = getActivity().findViewById(R.id.foodImage);
         if (requestCode == 1) {
             // Get Image
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            ContentResolver cr = getActivity().getContentResolver();
+            Bitmap photo = null;
+            try {
+                photo = MediaStore.Images.Media.getBitmap(cr, imageUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             // Give it to the ImageView
             foodImage.setImageBitmap(photo);
+            uploadPicture();
         }
-         */
+    }
 
+        /*
         if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
             imageUri = data.getData();
             foodImage.setImageURI(imageUri);
             uploadPicture();
         }
     }
+
+         */
+
 
     private void uploadPicture() {
 
