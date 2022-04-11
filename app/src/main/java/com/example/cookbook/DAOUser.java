@@ -11,7 +11,7 @@ public class DAOUser {
     private DatabaseReference databaseReference;
 
     public DAOUser(){
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        FirebaseDatabase db = MyDatabase.getDatabase();
         databaseReference = db.getReference(Users.class.getSimpleName());
     }
 

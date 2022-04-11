@@ -92,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             ArrayList<String> savedRecipe = new ArrayList<>();
                             ArrayList<String> uploadedRecipe = new ArrayList<>();
                             Users user = new Users(sUsername, sEmail);
-                            FirebaseDatabase.getInstance().getReference("Users")
+                            MyDatabase.getDatabase().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

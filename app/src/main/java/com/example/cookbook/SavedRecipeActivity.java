@@ -55,7 +55,7 @@ public class SavedRecipeActivity extends AppCompatActivity {
 
 
                 String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                DatabaseReference savedRecipes = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference savedRecipes = MyDatabase.getDatabase().getReference();
 
                 // go down to RecipeModel child
 

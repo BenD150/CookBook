@@ -77,7 +77,7 @@ public class UploadFragment extends Fragment {
 
 
         //Find the current user
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = MyDatabase.getDatabase();
         DatabaseReference dbReference = database.getReference();
         String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -193,7 +193,7 @@ public class UploadFragment extends Fragment {
 
                 //adds the recipe to the users saved recipes
                 String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("savedRecipes").push().setValue(newRecipe);
+                MyDatabase.getDatabase().getReference().child("Users").child(currentUserId).child("savedRecipes").push().setValue(newRecipe);
 
 
 

@@ -54,7 +54,7 @@ public class SearchRecipeActivity extends AppCompatActivity {
                 RecipeModel newRecipe = new RecipeModel(recipeName, prepTime, cookTime, ingrAndSteps, recipeImage, creator, uid);
 
                 String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("savedRecipes").push().setValue(newRecipe).addOnSuccessListener(success ->
+                MyDatabase.getDatabase().getReference().child("Users").child(currentUserId).child("savedRecipes").push().setValue(newRecipe).addOnSuccessListener(success ->
                 {
                     Toast.makeText(getApplicationContext(), "Recipe Saved Successfully!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);

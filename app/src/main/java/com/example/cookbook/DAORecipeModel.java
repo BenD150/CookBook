@@ -9,7 +9,7 @@ public class DAORecipeModel {
     private DatabaseReference databaseReference;
 
     public DAORecipeModel() {
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        FirebaseDatabase db = MyDatabase.getDatabase();
         databaseReference = db.getReference(RecipeModel.class.getSimpleName());
     }
 

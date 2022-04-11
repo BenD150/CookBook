@@ -83,7 +83,7 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
     private void setUpRecipeModels() {
         // establish firebase connection and set a reference point to root node
 
-        DatabaseReference searchRecipes = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference searchRecipes = MyDatabase.getDatabase().getReference();
 
         // go down to RecipeModel child. The pulling of data is slightly different from Saved Recipes
         searchRecipes.child("RecipeModel").addValueEventListener(new ValueEventListener() {

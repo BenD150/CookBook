@@ -90,7 +90,7 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
         // establish firebase connection and set a reference point to root node
 
         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference savedRecipes = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference savedRecipes = MyDatabase.getDatabase().getReference();
 
         // go down to RecipeModel child
         savedRecipes.child("Users").child(currentUserId).child("savedRecipes").addValueEventListener(new ValueEventListener() {
