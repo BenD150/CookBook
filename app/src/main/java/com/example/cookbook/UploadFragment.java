@@ -123,6 +123,21 @@ public class UploadFragment extends Fragment {
                     }, 100);
         }
 
+        if (ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this.getActivity(),
+                    new String[] {
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                    }, 100);
+        }
+
+        if (ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this.getActivity(),
+                    new String[] {
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    }, 100);
+        }
+
+
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
