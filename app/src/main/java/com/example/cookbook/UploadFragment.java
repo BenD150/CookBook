@@ -279,5 +279,11 @@ public class UploadFragment extends Fragment {
                 });
     }
 
+    public void onDestroyView() {
+
+        super.onDestroyView();
+
+    }
+
 
 }
