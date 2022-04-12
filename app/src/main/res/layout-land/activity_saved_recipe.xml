@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/myBlue">
+
+    <TextView
+        android:id="@+id/creator2"
+        android:layout_width="157dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="148dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/removeIngrAndSteps" />
+
+    <ImageView
+        android:id="@+id/recipeImage2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="78dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="51dp"
+        app:layout_constraintBottom_toTopOf="@+id/removeIngrAndSteps"
+        app:layout_constraintEnd_toStartOf="@+id/removeCookTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+
+    <TextView
+        android:id="@+id/removeRecipeName"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginBottom="96dp"
+        android:text="Strawberry Cheesecake"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/removeDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recipeImage2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/removePrepTime"
+        android:layout_width="0dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recipeImage2"
+        app:layout_constraintTop_toBottomOf="@+id/removeRecipeName" />
+
+    <TextView
+        android:id="@+id/removeCookTime"
+        android:layout_width="0dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recipeImage2"
+        app:layout_constraintTop_toBottomOf="@+id/removePrepTime" />
+
+    <TextView
+        android:id="@+id/removeIngrAndSteps"
+        android:layout_width="293dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="145dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipeImage2" />
+
+    <TextView
+        android:id="@+id/removeDescription"
+        android:layout_width="193dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="228dp"
+        android:text="Ingredients/Steps"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/removeRecipeName" />
+
+    <Button
+        android:id="@+id/removeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="204dp"
+        android:layout_marginBottom="56dp"
+        android:text="Remove"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
