@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class SavedFragment extends Fragment implements RecyclerViewInterface{
 
     ArrayList<RecipeModel> recipeModels = new ArrayList<>();
-    Recipe_RecyclerViewAdapter adapter = new Recipe_RecyclerViewAdapter(this.getContext(), recipeModels, this);
+    Recipe_RecyclerViewAdapter adapter = null;
     String uid = "";
 
     public SavedFragment() {
@@ -49,6 +49,7 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
         view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_saved, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.mRecyclerView);
         setUpRecipeModels();
+        adapter = new Recipe_RecyclerViewAdapter(this.getContext(), recipeModels, this);
         System.out.println("Just before setting up adapter, recipe models length is " + recipeModels.size());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -133,6 +134,10 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
         startActivity(intent);
     }
 
+    public void onDestroyView() {
+        super.onDestroyView();
+        adapter = null;
+    }
 
 
 
