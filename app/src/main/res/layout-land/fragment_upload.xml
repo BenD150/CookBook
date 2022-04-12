@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UploadFragment" >
+
+    <EditText
+        android:id="@+id/recipeName"
+        android:layout_width="627dp"
+        android:layout_height="65dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginBottom="257dp"
+        android:ems="10"
+        android:hint="Recipe Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/instructions"
+        android:layout_width="170dp"
+        android:layout_height="169dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="508dp"
+        android:layout_marginBottom="67dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Ingredients/Steps"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/addPhoto"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="454dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="62dp"
+        android:text="Add Photo" />
+
+    <Button
+        android:id="@+id/cancelCreation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="575dp"
+        android:layout_marginBottom="9dp"
+        android:text="Cancel" />
+
+
+    <Button
+        android:id="@+id/createRecipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="85dp"
+        android:layout_marginBottom="7dp"
+        android:text="Create" />
+
+    <EditText
+        android:id="@+id/prepTime"
+        android:layout_width="217dp"
+        android:layout_height="56dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="198dp"
+        android:layout_marginEnd="267dp"
+        android:layout_marginBottom="149dp"
+        android:ems="10"
+        android:hint="Prep Time (min.)"
+        android:inputType="time" />
+
+    <EditText
+        android:id="@+id/cookTime"
+        android:layout_width="208dp"
+        android:layout_height="64dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="199dp"
+        android:layout_marginEnd="276dp"
+        android:layout_marginBottom="64dp"
+        android:ems="10"
+        android:hint="Cook Time (min.)"
+        android:inputType="time" />
+
+    <ImageView
+        android:id="@+id/foodImage"
+        android:layout_width="181dp"
+        android:layout_height="130dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="117dp" />
+
+
+</RelativeLayout>
