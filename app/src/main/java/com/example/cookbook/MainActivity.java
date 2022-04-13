@@ -27,15 +27,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Ask for network permission
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[] {
-                            Manifest.permission.ACCESS_NETWORK_STATE
-                    }, 100);
-        }
-
         Button loginButton = findViewById(R.id.login);
         Button registerButton = findViewById(R.id.register);
 

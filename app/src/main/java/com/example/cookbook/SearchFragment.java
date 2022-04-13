@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class SearchFragment extends Fragment implements RecyclerViewInterface {
 
     ArrayList<RecipeModel> recipeModels = new ArrayList<>();
-    Recipe_RecyclerViewAdapter adapter = null;
+    Recipe_RecyclerViewAdapter adapter = new Recipe_RecyclerViewAdapter(this.getContext(), recipeModels, this);
     String uid = "";
 
     public SearchFragment() {
@@ -46,7 +46,6 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
         view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_search, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.mRecyclerView2);
         setUpRecipeModels();
-        adapter = new Recipe_RecyclerViewAdapter(this.getContext(), recipeModels, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -129,11 +128,5 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
         intent.putExtra("UID", adapter.getItem(position).getUid());
 
         startActivity(intent);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        adapter = null;
     }
 }
