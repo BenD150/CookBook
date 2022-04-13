@@ -43,53 +43,36 @@ public class HomeActivity extends AppCompatActivity {
         Button logoutBtn = findViewById(R.id.logout);
 
 
-        uploadFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Setting homeText and logout button to INVISIBLE so it doesn't show up in each fragment
-                settingsBtn.setVisibility(View.INVISIBLE);
-                homeText.setVisibility(View.INVISIBLE);
-                logoutBtn.setVisibility(View.INVISIBLE);
-                replaceFragment(new UploadFragment());
-            }
+        uploadFragment.setOnClickListener(view -> {
+            // Setting homeText and logout button to INVISIBLE so it doesn't show up in each fragment
+            settingsBtn.setVisibility(View.INVISIBLE);
+            homeText.setVisibility(View.INVISIBLE);
+            logoutBtn.setVisibility(View.INVISIBLE);
+            replaceFragment(new UploadFragment());
         });
 
-        savedFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Setting homeText and logout button to INVISIBLE so it doesn't show up in each fragment
-                settingsBtn.setVisibility(View.INVISIBLE);
-                homeText.setVisibility(View.INVISIBLE);
-                logoutBtn.setVisibility(View.INVISIBLE);
-                replaceFragment(new SavedFragment());
-            }
+        savedFragment.setOnClickListener(view -> {
+            // Setting homeText and logout button to INVISIBLE so it doesn't show up in each fragment
+            settingsBtn.setVisibility(View.INVISIBLE);
+            homeText.setVisibility(View.INVISIBLE);
+            logoutBtn.setVisibility(View.INVISIBLE);
+            replaceFragment(new SavedFragment());
         });
 
-        searchFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Setting homeText and logout button to INVISIBLE so it doesn't show up in each fragment
-                settingsBtn.setVisibility(View.INVISIBLE);
-                homeText.setVisibility(View.INVISIBLE);
-                logoutBtn.setVisibility(View.INVISIBLE);
-                replaceFragment(new SearchFragment());
-            }
+        searchFragment.setOnClickListener(view -> {
+            // Setting homeText and logout button to INVISIBLE so it doesn't show up in each fragment
+            settingsBtn.setVisibility(View.INVISIBLE);
+            homeText.setVisibility(View.INVISIBLE);
+            logoutBtn.setVisibility(View.INVISIBLE);
+            replaceFragment(new SearchFragment());
         });
 
-        settingsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
-            }
-        });
+        settingsBtn.setOnClickListener(view -> startActivity(new Intent(HomeActivity.this, SettingsActivity.class)));
 
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(HomeActivity.this, MainActivity.class));
-            }
+        logoutBtn.setOnClickListener(view -> {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(HomeActivity.this, MainActivity.class));
         });
 
 

@@ -47,23 +47,20 @@ public class SearchRecipeActivity extends AppCompatActivity {
         creatorView.setText("Created by: " + creator);
         Glide.with(getApplicationContext()).load(recipeImage).override(108, 108).into(recipeImageView);
 
-        searchRecipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        searchRecipe.setOnClickListener(view -> {
 
-                RecipeModel newRecipe = new RecipeModel(recipeName, prepTime, cookTime, ingrAndSteps, recipeImage, creator, uid);
+            RecipeModel newRecipe = new RecipeModel(recipeName, prepTime, cookTime, ingrAndSteps, recipeImage, creator, uid);
 
-                String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                MyDatabase.getDatabase().getReference().child("Users").child(currentUserId).child("savedRecipes").push().setValue(newRecipe).addOnSuccessListener(success ->
-                {
-                    Toast.makeText(getApplicationContext(), "Recipe Saved Successfully!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(intent);
-                }).addOnFailureListener(error ->
-                {
-                    Toast.makeText(getApplicationContext(), "" + error.getMessage(), Toast.LENGTH_SHORT).show();
-                });
-            }
+            String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            MyDatabase.getDatabase().getReference().child("Users").child(currentUserId).child("savedRecipes").push().setValue(newRecipe).addOnSuccessListener(success ->
+            {
+                Toast.makeText(getApplicationContext(), "Recipe Saved Successfully!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+            }).addOnFailureListener(error ->
+            {
+                Toast.makeText(getApplicationContext(), "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+            });
         });
     }
 }

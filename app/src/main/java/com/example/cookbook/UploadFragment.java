@@ -114,8 +114,6 @@ public class UploadFragment extends Fragment {
         // Open the camera if the add image button is clicked
         Button addPhoto = getActivity().findViewById(R.id.addPhoto);
 
-        // Used this video to help: https://www.youtube.com/watch?v=RaOyw84625w
-
         if (ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this.getActivity(),
                     new String[] {
@@ -138,24 +136,21 @@ public class UploadFragment extends Fragment {
         }
 
 
-        addPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        addPhoto.setOnClickListener(view1 -> {
 
-                // Help from Joel's comment: https://stackoverflow.com/questions/21388586/get-uri-from-camera-intent-in-android
-                // On physical Android device, must ask for permission to read and write from external storage
+            // Help from Joel's comment: https://stackoverflow.com/questions/21388586/get-uri-from-camera-intent-in-android
+            // On physical Android device, must ask for permission to read and write from external storage
 
-                String fileName = UUID.randomUUID().toString();;
-                ContentValues values = new ContentValues();
-                values.put(MediaStore.Images.Media.TITLE, fileName);
-                values.put(MediaStore.Images.Media.DESCRIPTION, "Image captured by camera");
-                imageUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                startActivityForResult(intent, 1);
+            String fileName = UUID.randomUUID().toString();;
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.Images.Media.TITLE, fileName);
+            values.put(MediaStore.Images.Media.DESCRIPTION, "Image captured by camera");
+            imageUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            startActivityForResult(intent, 1);
 
-                //choosePicture();
-            }
+            //choosePicture();
         });
 
 
@@ -174,31 +169,28 @@ public class UploadFragment extends Fragment {
         EditText instrAndSteps = getActivity().findViewById(R.id.instructions);
         foodImage = getActivity().findViewById(R.id.foodImage);
 
-        uploadRecipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String totalFile = "https://firebasestorage.googleapis.com/v0/b/cookbook-app-834e9.appspot.com/o/images%2F" + fileName + "?alt=media&token=";
-                RecipeModel newRecipe = new RecipeModel(recipeName.getText().toString(), prepTime.getText().toString(), cookTime.getText().toString(), instrAndSteps.getText().toString(), totalFile, creator, "");
-                dao.add(newRecipe).addOnSuccessListener(success ->
-                {
-                    Toast.makeText(getActivity(), "Recipe Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getActivity(), HomeActivity.class);
-                    startActivity(intent);
-                }).addOnFailureListener(error ->
-                {
-                    Toast.makeText(getActivity(), "" + error.getMessage(), Toast.LENGTH_SHORT).show();
-                });
+        uploadRecipe.setOnClickListener(view12 -> {
+            String totalFile = "https://firebasestorage.googleapis.com/v0/b/cookbook-app-834e9.appspot.com/o/images%2F" + fileName + "?alt=media&token=";
+            RecipeModel newRecipe = new RecipeModel(recipeName.getText().toString(), prepTime.getText().toString(), cookTime.getText().toString(), instrAndSteps.getText().toString(), totalFile, creator, "");
+            dao.add(newRecipe).addOnSuccessListener(success ->
+            {
+                Toast.makeText(getActivity(), "Recipe Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), HomeActivity.class);
+                startActivity(intent);
+            }).addOnFailureListener(error ->
+            {
+                Toast.makeText(getActivity(), "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+            });
 
-                // Get user's email address and add uploaded recipe to them
+            // Get user's email address and add uploaded recipe to them
 
-                //adds the recipe to the users saved recipes
-                String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                MyDatabase.getDatabase().getReference().child("Users").child(currentUserId).child("savedRecipes").push().setValue(newRecipe);
+            //adds the recipe to the users saved recipes
+            String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            MyDatabase.getDatabase().getReference().child("Users").child(currentUserId).child("savedRecipes").push().setValue(newRecipe);
 
 
 
 
-            }
         });
     }
 
@@ -256,12 +248,9 @@ public class UploadFragment extends Fragment {
         StorageReference riversRef = storageReference.child("images/" + randomKey);
 
         riversRef.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        pd.dismiss();
-                        Snackbar.make(getActivity().findViewById(android.R.id.content), "Image Uploaded.", Snackbar.LENGTH_LONG).show();
-                    }
+                .addOnSuccessListener(taskSnapshot -> {
+                    pd.dismiss();
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Image Uploaded.", Snackbar.LENGTH_LONG).show();
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -270,12 +259,9 @@ public class UploadFragment extends Fragment {
                         Toast.makeText(getActivity().getApplicationContext(), "Failed to Upload.", Toast.LENGTH_LONG).show();
                     }
                 })
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        double progressPercent = (100.00 * snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
-                        pd.setMessage("Percentage: " + (int)progressPercent + "%");
-                    }
+                .addOnProgressListener(snapshot -> {
+                    double progressPercent = (100.00 * snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
+                    pd.setMessage("Percentage: " + (int)progressPercent + "%");
                 });
     }
 

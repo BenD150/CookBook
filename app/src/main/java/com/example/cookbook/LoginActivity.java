@@ -44,12 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         signIn.setOnClickListener(this);
         sharedpreference= getSharedPreferences("myUserPrefs", Context.MODE_PRIVATE);
 
-        forgotPW.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, ForgotPWActivity.class));
-            }
-        });
+        forgotPW.setOnClickListener(view -> startActivity(new Intent(LoginActivity.this, ForgotPWActivity.class)));
     }
 
     @Override
@@ -79,17 +74,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
-                    SharedPreferences.Editor editor = sharedpreference.edit();
-                    editor.putString("user_email", email);
-                    editor.commit();
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                } else{
-                    Toast.makeText(LoginActivity.this , "Failed to Login!  Please make sure your credentials are correct or Register!", Toast.LENGTH_LONG);
-                }
+        mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                SharedPreferences.Editor editor = sharedpreference.edit();
+                editor.putString("user_email", email);
+                editor.commit();
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            } else{
+                Toast.makeText(LoginActivity.this , "Failed to Login!  Please make sure your credentials are correct or Register!", Toast.LENGTH_LONG);
             }
         });
 

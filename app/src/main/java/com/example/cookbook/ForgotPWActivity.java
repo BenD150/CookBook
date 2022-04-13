@@ -26,28 +26,22 @@ public class ForgotPWActivity extends AppCompatActivity {
 
 
         //on click listener for the forgot password activity
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        submitBtn.setOnClickListener(view -> {
 
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-                String emailAddress = email.getText().toString();
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            String emailAddress = email.getText().toString();
 
-                //send the user an email to reset password
-                auth.sendPasswordResetEmail(emailAddress).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(ForgotPWActivity.this, "Forgot Password Email Sent!", Toast.LENGTH_SHORT);
-                        }else{
-                            Toast.makeText(ForgotPWActivity.this, "Email Failed to Send!", Toast.LENGTH_SHORT);
-                        }
-                    }
-                });
+            //send the user an email to reset password
+            auth.sendPasswordResetEmail(emailAddress).addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
+                    Toast.makeText(ForgotPWActivity.this, "Forgot Password Email Sent!", Toast.LENGTH_SHORT);
+                }else{
+                    Toast.makeText(ForgotPWActivity.this, "Email Failed to Send!", Toast.LENGTH_SHORT);
+                }
+            });
 
-                //send the user back to the login screen to try again after reset password
-                startActivity(new Intent(ForgotPWActivity.this, LoginActivity.class));
-            }
+            //send the user back to the login screen to try again after reset password
+            startActivity(new Intent(ForgotPWActivity.this, LoginActivity.class));
         });
     }
 }

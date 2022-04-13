@@ -31,12 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
 
-        changePW.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, ChangeUserActivity.class));
-            }
-        });
+        changePW.setOnClickListener(view -> startActivity(new Intent(SettingsActivity.this, ChangeUserActivity.class)));
 
 
         deleteAcct.setOnClickListener(new View.OnClickListener() {
@@ -53,31 +48,23 @@ public class SettingsActivity extends AppCompatActivity {
                 });
 
                 AuthCredential credential = EmailAuthProvider.getCredential("user@example.com", "password1234");
-                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        //deletes the user when reauthentication
-                        user.delete().addOnSuccessListener(success ->
-                        {
-                            Toast.makeText(SettingsActivity.this, "Account Successfully Deleted", Toast.LENGTH_SHORT).show();
-                        }).addOnFailureListener(error ->
-                        {
-                            Toast.makeText(SettingsActivity.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
-                        startActivity(new Intent(SettingsActivity.this, MainActivity.class));
-                    }
+                user.reauthenticate(credential).addOnCompleteListener(task -> {
+                    //deletes the user when reauthentication
+                    user.delete().addOnSuccessListener(success ->
+                    {
+                        Toast.makeText(SettingsActivity.this, "Account Successfully Deleted", Toast.LENGTH_SHORT).show();
+                    }).addOnFailureListener(error ->
+                    {
+                        Toast.makeText(SettingsActivity.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+                    startActivity(new Intent(SettingsActivity.this, MainActivity.class));
                 });
                 startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
             }
         });
 
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, HomeActivity.class));
-            }
-        });
+        backBtn.setOnClickListener(view -> startActivity(new Intent(SettingsActivity.this, HomeActivity.class)));
 
 
 

@@ -39,41 +39,25 @@ public class ChangeUserActivity extends AppCompatActivity {
         Button cancelBtn = findViewById(R.id.cancelBtn);
         Button submitBtn = findViewById(R.id.submitBtn);
 
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ChangeUserActivity.this, SettingsActivity.class));
-            }
-        });
+        cancelBtn.setOnClickListener(view -> startActivity(new Intent(ChangeUserActivity.this, SettingsActivity.class)));
 
 
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String userEmail = currentEmail.getText().toString();
-                String userPW = currentPW.getText().toString();
-                String newUserPW = newPW.getText().toString();
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                AuthCredential credential = EmailAuthProvider.getCredential(userEmail, userPW);
-                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        user.updatePassword(newUserPW).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(ChangeUserActivity.this, "Password has been changed successfully!", Toast.LENGTH_LONG).show();
-                                    startActivity(new Intent(ChangeUserActivity.this, HomeActivity.class));
-                                } else {
-                                    Toast.makeText(ChangeUserActivity.this, "Failed to change Password.  Please make sure you old password matches the original! Try Again!", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
-                    }
-                });
+        submitBtn.setOnClickListener(view -> {
+            String userEmail = currentEmail.getText().toString();
+            String userPW = currentPW.getText().toString();
+            String newUserPW = newPW.getText().toString();
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            AuthCredential credential = EmailAuthProvider.getCredential(userEmail, userPW);
+            user.reauthenticate(credential).addOnCompleteListener(task -> user.updatePassword(newUserPW).addOnCompleteListener(task1 -> {
+                if (task1.isSuccessful()) {
+                    Toast.makeText(ChangeUserActivity.this, "Password has been changed successfully!", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(ChangeUserActivity.this, HomeActivity.class));
+                } else {
+                    Toast.makeText(ChangeUserActivity.this, "Failed to change Password.  Please make sure you old password matches the original! Try Again!", Toast.LENGTH_LONG).show();
+                }
+            }));
 
-                startActivity(new Intent(ChangeUserActivity.this, HomeActivity.class));
-            }
+            startActivity(new Intent(ChangeUserActivity.this, HomeActivity.class));
         });
 
 

@@ -4,7 +4,6 @@ public class RecipeModel {
     String recipeName;
     String prepTime;
     String cookTime;
-    //Will need instructions and steps later
     String instructionsAndSteps;
     String creator;
     String uid;

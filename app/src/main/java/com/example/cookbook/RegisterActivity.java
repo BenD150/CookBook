@@ -85,29 +85,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
         mAuth.createUserWithEmailAndPassword(sEmail, sPassword)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            ArrayList<String> savedRecipe = new ArrayList<>();
-                            ArrayList<String> uploadedRecipe = new ArrayList<>();
-                            Users user = new Users(sUsername, sEmail);
-                            MyDatabase.getDatabase().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        ArrayList<String> savedRecipe = new ArrayList<>();
+                        ArrayList<String> uploadedRecipe = new ArrayList<>();
+                        Users user = new Users(sUsername, sEmail);
+                        MyDatabase.getDatabase().getReference("Users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .setValue(user).addOnCompleteListener(task1 -> {
+                                    if (task1.isSuccessful()) {
                                         Toast.makeText(RegisterActivity.this, "User has been registered successfully!", Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
                                     } else {
                                         Toast.makeText(RegisterActivity.this, "Failed to register! Try Again!", Toast.LENGTH_LONG).show();
                                     }
-                                }
-                            });
-                        }else{
-                            Toast.makeText(RegisterActivity.this, "Failed to register! Try Again!", Toast.LENGTH_LONG).show();
-                        }
+                                });
+                    }else{
+                        Toast.makeText(RegisterActivity.this, "Failed to register! Try Again!", Toast.LENGTH_LONG).show();
                     }
                 });
 
