@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_message">欢迎来到CookBook！请登录或者注册以继续</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="title_activity_login">登录</string>
+    <string name="UploadRecipe">上传新菜谱</string>
+    <string name="change_password_prompt">请输入您的邮箱，旧密码，以及新密码以继续</string>
+    <string name="email_hint">邮箱</string>
+    <string name="curr_password">旧密码</string>
+    <string name="new_password">新密码</string>
+    <string name="cancel">取消</string>
+    <string name="submit">提交</string>
+    <string name="log_out">登出</string>
+    <string name="settings">设置</string>
+    <string name="welcome_prompt">欢迎来到CookBook！ 请点击上传按钮来上传新菜谱，已保存以浏览保存的菜谱，或搜索来搜索新的菜谱</string>
+    <string name="upload">上传</string>
+    <string name="search">搜索</string>
+    <string name="saved">已保存</string>
+    <string name="email_address">邮箱地址</string>
+    <string name="password">密码</string>
+    <string name="forgot_password">忘记密码？</string>
+    <string name="register_prompt">请填写相关信息完成注册</string>
+    <string name="username">用户名</string>
+    <string name="textview">文本框</string>
+    <string name="strawberry_cheesecake">草莓芝士乳酪</string>
+    <string name="ingredient_step">食材/步骤</string>
+    <string name="remove">删除</string>
+    <string name="save">保存</string>
+    <string name="change_password">更改密码</string>
+    <string name="delete_acc">删除账号</string>
+    <string name="back">后退</string>
+    <string name="prep_time">准备时间：10分钟</string>
+    <string name="cook_time">料理时间：20分钟</string>
+    <string name="add_photo">添加图片</string>
+    <string name="create">创建</string>
+    <string name="prep_time_example">准备时间 (分钟.)</string>
+    <string name="cook_time_example">烹饪时间 (分钟.)</string>
+    <string name="recipe_name">菜谱名称</string>
+</resources>

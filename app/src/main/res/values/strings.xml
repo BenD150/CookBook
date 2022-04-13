@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CookBook</string>
+    <string name="app_name" translatable="false">CookBook</string>
     <string name="app_message">Welcome to CookBook! Please login or register to continue.</string>
     <string name="login">Log In</string>
     <string name="register">Register</string>
@@ -7,7 +7,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="UploadRecipe">Upload A New Recipe</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="change_password_prompt">In order to make a new password, enter your current email, old password, and the new password that you would like.</string>
     <string name="email_hint">Email</string>
     <string name="curr_password">Current Password</string>
@@ -35,4 +35,9 @@
     <string name="back">Back</string>
     <string name="prep_time">Prep Time: 10 min.</string>
     <string name="cook_time">Cook Time: 20 min.</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="create">Create</string>
+    <string name="prep_time_example">Prep Time (min.)</string>
+    <string name="cook_time_example">Cook Time (min.)</string>
+    <string name="recipe_name">Recipe Name</string>
 </resources>

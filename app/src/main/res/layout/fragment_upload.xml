@@ -15,7 +15,7 @@
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="288dp"
         android:ems="10"
-        android:hint="Recipe Name"
+        android:hint="@string/recipe_name"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +30,7 @@
         android:layout_marginBottom="51dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="Ingredients/Steps"
+        android:hint="@string/ingredient_step"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -42,7 +42,7 @@
         android:layout_marginStart="181dp"
         android:layout_marginEnd="44dp"
         android:layout_marginBottom="60dp"
-        android:text="Add Photo"
+        android:text="@string/add_photo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="202dp"
         android:layout_marginBottom="1dp"
-        android:text="Cancel"
+        android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="46dp"
         android:layout_marginBottom="3dp"
-        android:text="Create"
+        android:text="@string/create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -75,7 +75,7 @@
         android:layout_marginEnd="159dp"
         android:layout_marginBottom="218dp"
         android:ems="10"
-        android:hint="Prep Time (min.)"
+        android:hint="@string/prep_time_example"
         android:inputType="time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +89,7 @@
         android:layout_marginEnd="3dp"
         android:layout_marginBottom="219dp"
         android:ems="10"
-        android:hint="Cook Time (min.)"
+        android:hint="@string/cook_time_example"
         android:inputType="time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
