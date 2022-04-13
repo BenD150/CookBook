@@ -8,17 +8,19 @@
 
     <TextView
         android:id="@+id/resetInfo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="523dp"
+        android:layout_height="42dp"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="8dp"
         android:text="In order to make a new password, enter your current email, old password, and the new password that you would like."
         app:layout_constraintBottom_toTopOf="@+id/currentEmail"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/currentEmail"
@@ -33,6 +35,7 @@
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="@+id/newPW"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,8 +66,10 @@
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.47" />
 
     <Button
         android:id="@+id/cancelBtn"

@@ -8,10 +8,10 @@
 
     <EditText
         android:id="@+id/userEmail"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="509dp"
+        android:layout_height="51dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="89dp"
         android:ems="10"
@@ -19,17 +19,19 @@
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/submitBtn2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/submitBtn2"
-        android:layout_width="298dp"
-        android:layout_height="0dp"
+        android:layout_width="280dp"
+        android:layout_height="81dp"
         android:layout_marginBottom="41dp"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.553"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userEmail" />
 </androidx.constraintlayout.widget.ConstraintLayout>
