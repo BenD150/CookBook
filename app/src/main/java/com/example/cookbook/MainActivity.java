@@ -1,8 +1,15 @@
 package com.example.cookbook;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.View;
 
@@ -19,6 +26,15 @@ public class MainActivity extends AppCompatActivity {
         Log.i("MainActivity", "onCreate has been called.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Ask for network permission
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[] {
+                            Manifest.permission.ACCESS_NETWORK_STATE
+                    }, 100);
+        }
 
         Button loginButton = findViewById(R.id.login);
         Button registerButton = findViewById(R.id.register);
