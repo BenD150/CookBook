@@ -13,7 +13,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="7dp"
-        android:text="In order to make a new password, enter your current email, old password, and the new password that you would like."
+        android:text="@string/change_password_prompt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
         android:layout_marginEnd="13dp"
         android:layout_marginBottom="18dp"
         android:ems="10"
-        android:hint="Email"
+        android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/currentPW"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +43,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="74dp"
         android:ems="10"
-        android:hint="Current Password"
+        android:hint="@string/curr_password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="@+id/newPW"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="101dp"
         android:ems="10"
-        android:hint="New Password"
+        android:hint="@string/new_password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="14dp"
-        android:text="Cancel"
+        android:text="@string/cancel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newPW" />
 
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="19dp"
-        android:text="Submit"
+        android:text="@string/submit"
         app:layout_constraintEnd_toEndOf="@+id/newPW"
         app:layout_constraintTop_toBottomOf="@+id/newPW" />
 </androidx.constraintlayout.widget.ConstraintLayout>

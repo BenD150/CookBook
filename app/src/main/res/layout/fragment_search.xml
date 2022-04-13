@@ -16,7 +16,7 @@
         android:layout_marginEnd="7dp"
         android:layout_marginBottom="303dp"
         android:ems="10"
-        android:hint="Search"
+        android:hint="@string/search"
         android:inputType="textPersonName" />
 
     <androidx.recyclerview.widget.RecyclerView

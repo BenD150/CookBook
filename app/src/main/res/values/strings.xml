@@ -8,4 +8,31 @@
     <string name="UploadRecipe">Upload A New Recipe</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="change_password_prompt">In order to make a new password, enter your current email, old password, and the new password that you would like.</string>
+    <string name="email_hint">Email</string>
+    <string name="curr_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
+    <string name="log_out">Log Out</string>
+    <string name="settings">Settings</string>
+    <string name="welcome_prompt">Welcome to CookBook! Please select the UPLOAD button to create a new recipe, select the SAVED button to see all of your saved recipes, and the SEARCH button to look for new recipes.</string>
+    <string name="upload">UPLOAD</string>
+    <string name="search">SEARCH</string>
+    <string name="saved">SAVED</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="register_prompt">Please fill out the appropriate fields to register for an account.</string>
+    <string name="username">Username</string>
+    <string name="textview">TextView</string>
+    <string name="strawberry_cheesecake">Strawberry Cheesecake</string>
+    <string name="ingredient_step">Ingredients/Steps</string>
+    <string name="remove">Remove</string>
+    <string name="save">Save</string>
+    <string name="change_password">Change Password</string>
+    <string name="delete_acc">Delete Account</string>
+    <string name="back">Back</string>
+    <string name="prep_time">Prep Time: 10 min.</string>
+    <string name="cook_time">Cook Time: 20 min.</string>
 </resources>

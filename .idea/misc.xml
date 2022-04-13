@@ -3,8 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout-land/activity_forgot_pwactivity.xml" value="0.21472663139329806" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout-land/activity_home.xml" value="0.21472663139329806" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout-land/activity_login.xml" value="0.2600243013365735" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout-land/activity_main.xml" value="0.21472663139329806" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout-land/activity_register.xml" value="0.21472663139329806" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout-land/activity_saved_recipe.xml" value="0.21472663139329806" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout-land/activity_search_recipe.xml" value="0.21472663139329806" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout-land/activity_settings.xml" value="0.21472663139329806" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout-land/fragment_saved.xml" value="0.21472663139329806" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout-land/fragment_search.xml" value="0.21472663139329806" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout/activity_forgot_pwactivity.xml" value="0.19384057971014493" />
         <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout/activity_home.xml" value="0.2" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout/activity_login.xml" value="0.19384057971014493" />
         <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout/activity_register.xml" value="0.19384057971014493" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout/activity_saved_recipe.xml" value="0.19384057971014493" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout/activity_search_recipe.xml" value="0.19384057971014493" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout/activity_settings.xml" value="0.19384057971014493" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout/fragment_saved.xml" value="0.19384057971014493" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout/fragment_search.xml" value="0.19384057971014493" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/layout/recycler_view_row.xml" value="0.19384057971014493" />
+        <entry key="..\:/Users/86182/CookBook/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2265" />
         <entry key="..\:/Users/bendo/AndroidStudioProjects/CookBook/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3335" />
         <entry key="..\:/Users/bendo/AndroidStudioProjects/CookBook/app/src/main/res/layout-land/activity_change_user.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/bendo/AndroidStudioProjects/CookBook/app/src/main/res/layout-land/activity_forgot_pwactivity.xml" value="0.4466666666666667" />

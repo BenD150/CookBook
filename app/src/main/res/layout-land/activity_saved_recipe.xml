@@ -13,7 +13,7 @@
         android:layout_height="41dp"
         android:layout_marginStart="208dp"
         android:layout_marginBottom="4dp"
-        android:text="TextView"
+        android:text="@string/textview"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/removeBtn" />
@@ -34,7 +34,7 @@
         android:layout_height="63dp"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="104dp"
-        android:text="Strawberry Cheesecake"
+        android:text="@string/strawberry_cheesecake"
         android:textColor="@color/white"
         android:textSize="16dp"
         android:textStyle="bold"
@@ -47,7 +47,7 @@
         android:layout_height="47dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
+        android:text="@string/textview"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/removeBtn"
         app:layout_constraintTop_toTopOf="parent" />
@@ -58,7 +58,7 @@
         android:layout_height="47dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
+        android:text="@string/textview"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/removePrepTime"
         app:layout_constraintTop_toTopOf="parent" />
@@ -69,7 +69,7 @@
         android:layout_height="84dp"
         android:layout_marginStart="28dp"
         android:layout_marginBottom="64dp"
-        android:text="TextView"
+        android:text="@string/textview"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/removeBtn" />
@@ -80,7 +80,7 @@
         android:layout_height="32dp"
         android:layout_marginStart="28dp"
         android:layout_marginBottom="88dp"
-        android:text="Ingredients/Steps"
+        android:text="@string/ingredient_step"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/removeIngrAndSteps"
@@ -92,7 +92,7 @@
         android:layout_height="41dp"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="16dp"
-        android:text="Remove"
+        android:text="@string/remove"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
