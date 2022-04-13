@@ -15,19 +15,24 @@
         android:theme="@style/Theme.CookBook">
         <activity
             android:name=".ForgotPWActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".LoginActivity"/>
         <activity
             android:name=".SettingsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".HomeActivity"/>
         <activity
             android:name=".ChangeUserActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".SettingsActivity"/>
         <activity
             android:name=".SavedRecipeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".HomeActivity"/>
         <activity
             android:name=".SearchRecipeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".HomeActivity"/>
         <activity
             android:name=".HomeActivity"
             android:exported="false"
