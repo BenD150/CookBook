@@ -17,6 +17,8 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Locale;
+
 public class SearchRecipeActivity extends AppCompatActivity {
 
     @Override
@@ -42,12 +44,22 @@ public class SearchRecipeActivity extends AppCompatActivity {
         ImageView recipeImageView = findViewById(R.id.recipeImage3);
 
         recipeNameView.setText(recipeName);
-        String newPrep = "Prep Time: " + prepTime + " min.";
-        String newCook = "Cook Time: " + cookTime + " min.";
+        String displayLanguage = Locale.getDefault().getDisplayLanguage();
+        String newPrep = "";
+        String newCook = "";
+        String creatorHelperString = "Created by: ";
+        if(displayLanguage.equals("中文")){
+            newPrep = "准备时间: " + prepTime + " 分钟.";
+            newCook = "烹饪时间: " + cookTime + " 分钟.";
+            creatorHelperString = "作者为:";
+        } else {
+            newPrep = "Prep Time: " + prepTime + " min.";
+            newCook = "Cook Time: " + cookTime + " min.";
+        }
         prepTimeView.setText(newPrep);
         cookTimeView.setText(newCook);
         instrAndStepsView.setText(ingrAndSteps);
-        creatorView.setText("Created by: " + creator);
+        creatorView.setText(creatorHelperString + creator);
         Glide.with(getApplicationContext()).load(recipeImage).override(108, 108).into(recipeImageView);
 
         searchRecipe.setOnClickListener(view -> {
