@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -49,7 +51,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v){
-        userLogin();
+
+
+        boolean isConnected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            isConnected = true;
+        }
+        else
+            isConnected = false;
+
+
+
+
+        if (isConnected == false) {
+            Toast.makeText(LoginActivity.this , "Unable to Login! No Internet Connection!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            userLogin();
+        }
     }
 
     private void userLogin(){
@@ -81,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 editor.commit();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             } else{
-                Toast.makeText(LoginActivity.this , "Failed to Login!  Please make sure your credentials are correct or Register!", Toast.LENGTH_LONG);
+                Toast.makeText(LoginActivity.this , "Failed to Login!  Please make sure your credentials are correct or Register!", Toast.LENGTH_LONG).show();
             }
         });
 
