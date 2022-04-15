@@ -3,7 +3,10 @@ package com.example.cookbook;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,12 +34,19 @@ public class SettingsActivity extends AppCompatActivity {
 
 
 
-        changePW.setOnClickListener(view -> startActivity(new Intent(SettingsActivity.this, ChangeUserActivity.class)));
+        changePW.setOnClickListener(view -> {
+            if (checkConnection() == false) {
+                Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
+            } else {
+                startActivity(new Intent(SettingsActivity.this, ChangeUserActivity.class));
+            }
+        });
 
 
-        deleteAcct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        deleteAcct.setOnClickListener(view -> {
+            if (checkConnection() == false) {
+                Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
+            } else {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String myUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 dao.delete(myUser).addOnSuccessListener(success ->
@@ -44,7 +54,7 @@ public class SettingsActivity extends AppCompatActivity {
                     Toast.makeText(SettingsActivity.this, "Account Successfully Deleted", Toast.LENGTH_SHORT).show();
                 }).addOnFailureListener(error ->
                 {
-                    Toast.makeText(SettingsActivity.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SettingsActivity.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
                 });
 
                 AuthCredential credential = EmailAuthProvider.getCredential("user@example.com", "password1234");
@@ -63,10 +73,21 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-
         backBtn.setOnClickListener(view -> startActivity(new Intent(SettingsActivity.this, HomeActivity.class)));
+    }
 
 
 
+    public boolean checkConnection() {
+        boolean isConnected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            isConnected = true;
+        }
+        else
+            isConnected = false;
+
+        return isConnected;
     }
 }
