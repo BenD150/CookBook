@@ -33,6 +33,7 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
     ArrayList<RecipeModel> recipeModels = new ArrayList<>();
     Recipe_RecyclerViewAdapter adapter = new Recipe_RecyclerViewAdapter(this.getContext(), recipeModels, this);
     String uid = "";
+    private ValueEventListener mListener;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -87,7 +88,7 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
         DatabaseReference searchRecipes = MyDatabase.getDatabase().getReference();
 
         // go down to RecipeModel child. The pulling of data is slightly different from Saved Recipes
-        searchRecipes.child("RecipeModel").addValueEventListener(new ValueEventListener() {
+        mListener = searchRecipes.child("RecipeModel").addValueEventListener(new ValueEventListener() {
             //this method will be invoked anytime the database be changed
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -128,5 +129,11 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
         intent.putExtra("UID", adapter.getItem(position).getUid());
 
         startActivity(intent);
+    }
+
+
+    public void onDestroyView() {
+        super.onDestroyView();
+        MyDatabase.getDatabase().getReference().child("RecipeModel").removeEventListener(mListener);
     }
 }

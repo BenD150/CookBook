@@ -35,6 +35,8 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
     ArrayList<RecipeModel> recipeModels = new ArrayList<>();
     Recipe_RecyclerViewAdapter adapter = new Recipe_RecyclerViewAdapter(this.getContext(), recipeModels, this);
     String uid = "";
+    private ValueEventListener mListener;
+    private String currentUserId = "";
 
     public SavedFragment() {
         // Required empty public constructor
@@ -89,11 +91,11 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
     private void setUpRecipeModels() {
         // establish firebase connection and set a reference point to root node
 
-        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference savedRecipes = MyDatabase.getDatabase().getReference();
 
         // go down to RecipeModel child
-        savedRecipes.child("Users").child(currentUserId).child("savedRecipes").addValueEventListener(new ValueEventListener() {
+        mListener = savedRecipes.child("Users").child(currentUserId).child("savedRecipes").addValueEventListener(new ValueEventListener() {
             //this method will be invoked anytime the database be changed
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -131,5 +133,10 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
         intent.putExtra("UID", adapter.getItem(position).getUid());
 
         startActivity(intent);
+    }
+
+    public void onDestroyView() {
+        super.onDestroyView();
+        MyDatabase.getDatabase().getReference().child("Users").child(currentUserId).child("savedRecipes").removeEventListener(mListener);
     }
 }
