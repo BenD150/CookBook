@@ -2,7 +2,10 @@ package com.example.cookbook;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -51,24 +54,37 @@ public class SavedRecipeActivity extends AppCompatActivity {
 
         removeRecipe.setOnClickListener(view -> {
 
+            if (checkConnection() == false) {
+                Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
+            } else {
+                String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                DatabaseReference savedRecipes = MyDatabase.getDatabase().getReference();
 
-            String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            DatabaseReference savedRecipes = MyDatabase.getDatabase().getReference();
+                // go down to RecipeModel child
 
-            // go down to RecipeModel child
-
-            savedRecipes.child("Users").child(currentUserId).child("savedRecipes").child(uid).removeValue().addOnSuccessListener(success ->
-            {
-                Toast.makeText(getApplicationContext(), "Recipe Removed Successfully!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(intent);
-            }).addOnFailureListener(error ->
-            {
-                Toast.makeText(getApplicationContext(), "" + error.getMessage(), Toast.LENGTH_SHORT).show();
-            });
-
+                savedRecipes.child("Users").child(currentUserId).child("savedRecipes").child(uid).removeValue().addOnSuccessListener(success ->
+                {
+                    Toast.makeText(getApplicationContext(), "Recipe Removed Successfully!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+                }).addOnFailureListener(error ->
+                {
+                    Toast.makeText(getApplicationContext(), "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+            }
         });
+    }
 
+    public boolean checkConnection() {
+        boolean isConnected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            isConnected = true;
+        }
+        else
+            isConnected = false;
 
+        return isConnected;
     }
 }
