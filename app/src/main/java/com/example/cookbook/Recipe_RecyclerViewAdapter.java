@@ -19,6 +19,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_RecyclerViewAdapter.MyViewHolder> {
 
@@ -47,8 +48,16 @@ public class Recipe_RecyclerViewAdapter extends RecyclerView.Adapter<Recipe_Recy
     public void onBindViewHolder(@NonNull Recipe_RecyclerViewAdapter.MyViewHolder holder, int position) {
         // Assign values to the views we created in the recycler_view_row layout file
         holder.tvName.setText(recipeModels.get(position).getRecipeName());
-        String newPrepTime = "Prep Time: " + recipeModels.get(position).getPrepTime() + " min.";
-        String newCookTime = "Cook Time: " + recipeModels.get(position).getCookTime() + " min.";
+        String displayLanguage = Locale.getDefault().getDisplayLanguage();
+        String newPrepTime = "";
+        String newCookTime = "";
+        if(displayLanguage.equals("中文")){
+            newPrepTime = "准备时间: " + recipeModels.get(position).getPrepTime() + " 分钟.";
+            newCookTime = "烹饪时间: " + recipeModels.get(position).getCookTime() + " 分钟.";
+        } else {
+            newPrepTime = "Prep Time: " + recipeModels.get(position).getPrepTime() + " min.";
+            newCookTime = "Cook Time: " + recipeModels.get(position).getCookTime() + " min.";
+        }
         holder.tvPrep.setText(newPrepTime);
         holder.tvCook.setText(newCookTime);
         Glide.with(context).load(recipeModels.get(position).getImage()).override(150, 150).into(holder.imageView);
