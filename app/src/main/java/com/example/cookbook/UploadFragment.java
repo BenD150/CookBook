@@ -12,6 +12,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -138,19 +140,20 @@ public class UploadFragment extends Fragment {
 
         addPhoto.setOnClickListener(view1 -> {
 
-            // Help from Joel's comment: https://stackoverflow.com/questions/21388586/get-uri-from-camera-intent-in-android
-            // On physical Android device, must ask for permission to read and write from external storage
+            if (checkConnection() == false) {
+                Toast.makeText(getActivity() , "No Internet Connection!", Toast.LENGTH_SHORT).show();
+            } else {
 
-            String fileName = UUID.randomUUID().toString();;
-            ContentValues values = new ContentValues();
-            values.put(MediaStore.Images.Media.TITLE, fileName);
-            values.put(MediaStore.Images.Media.DESCRIPTION, "Image captured by camera");
-            imageUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-            startActivityForResult(intent, 1);
-
-            //choosePicture();
+                String fileName = UUID.randomUUID().toString();
+                ;
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Images.Media.TITLE, fileName);
+                values.put(MediaStore.Images.Media.DESCRIPTION, "Image captured by camera");
+                imageUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(intent, 1);
+            }
         });
 
 
@@ -170,42 +173,33 @@ public class UploadFragment extends Fragment {
         foodImage = getActivity().findViewById(R.id.foodImage);
 
         uploadRecipe.setOnClickListener(view12 -> {
-            String totalFile = "https://firebasestorage.googleapis.com/v0/b/cookbook-app-834e9.appspot.com/o/images%2F" + fileName + "?alt=media&token=";
-            RecipeModel newRecipe = new RecipeModel(recipeName.getText().toString(), prepTime.getText().toString(), cookTime.getText().toString(), instrAndSteps.getText().toString(), totalFile, creator, "");
-            dao.add(newRecipe).addOnSuccessListener(success ->
-            {
-                Toast.makeText(getActivity(), "Recipe Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), HomeActivity.class);
-                startActivity(intent);
-            }).addOnFailureListener(error ->
-            {
-                Toast.makeText(getActivity(), "" + error.getMessage(), Toast.LENGTH_SHORT).show();
-            });
+            if (checkConnection() == false) {
+                Toast.makeText(getActivity() , "No Internet Connection!", Toast.LENGTH_SHORT).show();
+            } else {
+                String totalFile = "https://firebasestorage.googleapis.com/v0/b/cookbook-app-834e9.appspot.com/o/images%2F" + fileName + "?alt=media&token=";
+                RecipeModel newRecipe = new RecipeModel(recipeName.getText().toString(), prepTime.getText().toString(), cookTime.getText().toString(), instrAndSteps.getText().toString(), totalFile, creator, "");
+                dao.add(newRecipe).addOnSuccessListener(success ->
+                {
+                    Toast.makeText(getActivity(), "Recipe Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                    startActivity(intent);
+                }).addOnFailureListener(error ->
+                {
+                    Toast.makeText(getActivity(), "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                });
 
-            // Get user's email address and add uploaded recipe to them
+                // Get user's email address and add uploaded recipe to them
 
-            //adds the recipe to the users saved recipes
-            String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            MyDatabase.getDatabase().getReference().child("Users").child(currentUserId).child("savedRecipes").push().setValue(newRecipe);
-
-
-
-
+                //adds the recipe to the users saved recipes
+                String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                MyDatabase.getDatabase().getReference().child("Users").child(currentUserId).child("savedRecipes").push().setValue(newRecipe);
+            }
         });
-    }
-
-    private void choosePicture(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 1);
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
-        // Help from Joel's comment: https://stackoverflow.com/questions/21388586/get-uri-from-camera-intent-in-android
 
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -225,17 +219,6 @@ public class UploadFragment extends Fragment {
             uploadPicture();
         }
     }
-
-        /*
-        if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
-            imageUri = data.getData();
-            foodImage.setImageURI(imageUri);
-            uploadPicture();
-        }
-    }
-
-         */
-
 
     private void uploadPicture() {
 
@@ -263,6 +246,19 @@ public class UploadFragment extends Fragment {
                     double progressPercent = (100.00 * snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
                     pd.setMessage("Percentage: " + (int)progressPercent + "%");
                 });
+    }
+
+    public boolean checkConnection() {
+        boolean isConnected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            isConnected = true;
+        }
+        else
+            isConnected = false;
+
+        return isConnected;
     }
 
     public void onDestroyView() {
