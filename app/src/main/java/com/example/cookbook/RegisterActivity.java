@@ -3,7 +3,10 @@ package com.example.cookbook;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -45,7 +48,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v){
-        registerUser();
+
+        if (v.getId() == R.id.home) {
+            if (checkConnection() == false) {
+                Toast.makeText(RegisterActivity.this , "No Internet Connection!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                registerUser();
+            }
+        }
     }
 
     private void registerUser(){
@@ -104,8 +115,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(RegisterActivity.this, "Failed to register! Try Again!", Toast.LENGTH_LONG).show();
                     }
                 });
+    }
 
 
+    public boolean checkConnection() {
+        boolean isConnected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            isConnected = true;
+        }
+        else
+            isConnected = false;
+
+        return isConnected;
 
     }
+
+
+
 }

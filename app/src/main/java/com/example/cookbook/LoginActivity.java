@@ -16,10 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -44,34 +40,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextEmail = (EditText) findViewById(R.id.editTextTextEmailAddress2);
         editTextPass = (EditText) findViewById(R.id.editTextTextPassword2);
         signIn.setOnClickListener(this);
+        forgotPW.setOnClickListener(this);
         sharedpreference= getSharedPreferences("myUserPrefs", Context.MODE_PRIVATE);
-
-        forgotPW.setOnClickListener(view -> startActivity(new Intent(LoginActivity.this, ForgotPWActivity.class)));
     }
 
     @Override
     public void onClick(View v){
 
-
-        boolean isConnected = false;
-        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            //we are connected to a network
-            isConnected = true;
+        if (v.getId() == R.id.login2) {
+            if (checkConnection() == false) {
+                Toast.makeText(LoginActivity.this , "No Internet Connection!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                userLogin();
+            }
         }
-        else
-            isConnected = false;
 
-
-
-
-        if (isConnected == false) {
-            Toast.makeText(LoginActivity.this , "Unable to Login! No Internet Connection!", Toast.LENGTH_SHORT).show();
+        if (v.getId() == R.id.forgotPWBtn) {
+            if (checkConnection() == false) {
+                Toast.makeText(LoginActivity.this , "No Internet Connection!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                startActivity(new Intent(LoginActivity.this, ForgotPWActivity.class));
+            }
         }
-        else {
-            userLogin();
-        }
+
+
     }
 
     private void userLogin(){
@@ -106,8 +100,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(LoginActivity.this , "Failed to Login!  Please make sure your credentials are correct or Register!", Toast.LENGTH_LONG).show();
             }
         });
+    }
 
+    public boolean checkConnection() {
+        boolean isConnected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            isConnected = true;
+        }
+        else
+            isConnected = false;
 
+        return isConnected;
 
     }
+
+
+
+
+
+
 }
