@@ -3,7 +3,10 @@ package com.example.cookbook;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,20 +31,40 @@ public class ForgotPWActivity extends AppCompatActivity {
         //on click listener for the forgot password activity
         submitBtn.setOnClickListener(view -> {
 
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            String emailAddress = email.getText().toString();
+            if (checkConnection() == false) {
+                Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
+            } else {
 
-            //send the user an email to reset password
-            auth.sendPasswordResetEmail(emailAddress).addOnCompleteListener(task -> {
-                if(task.isSuccessful()){
-                    Toast.makeText(ForgotPWActivity.this, "Forgot Password Email Sent!", Toast.LENGTH_SHORT);
-                }else{
-                    Toast.makeText(ForgotPWActivity.this, "Email Failed to Send!", Toast.LENGTH_SHORT);
-                }
-            });
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                String emailAddress = email.getText().toString();
 
-            //send the user back to the login screen to try again after reset password
-            startActivity(new Intent(ForgotPWActivity.this, LoginActivity.class));
+                //send the user an email to reset password
+                auth.sendPasswordResetEmail(emailAddress).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(ForgotPWActivity.this, "Forgot Password Email Sent!", Toast.LENGTH_SHORT);
+                    } else {
+                        Toast.makeText(ForgotPWActivity.this, "Email Failed to Send!", Toast.LENGTH_SHORT);
+                    }
+                });
+
+                //send the user back to the login screen to try again after reset password
+                startActivity(new Intent(ForgotPWActivity.this, LoginActivity.class));
+            }
         });
     }
+
+    public boolean checkConnection() {
+        boolean isConnected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            isConnected = true;
+        }
+        else
+            isConnected = false;
+
+        return isConnected;
+    }
+
+
 }
