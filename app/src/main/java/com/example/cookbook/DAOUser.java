@@ -14,11 +14,11 @@ public class DAOUser {
         FirebaseDatabase db = MyDatabase.getDatabase();
         databaseReference = db.getReference(Users.class.getSimpleName());
     }
-
+    // Used to update a user's information
     public Task<Void> update(String key, HashMap<String, Object> hashMap){
         return databaseReference.child(key).updateChildren(hashMap);
     }
-
+    // Remove a user from the database
     public Task<Void> delete(String key) {
         return databaseReference.child(key).removeValue();
     }

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
 
@@ -27,6 +25,7 @@ public class SavedRecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_recipe);
 
+        // Get tbe strings from the intent
         String recipeName = getIntent().getStringExtra("RECIPENAME");
         String prepTime = getIntent().getStringExtra("PREPTIME");
         String cookTime = getIntent().getStringExtra("COOKTIME");
@@ -48,6 +47,7 @@ public class SavedRecipeActivity extends AppCompatActivity {
         String displayLanguage = Locale.getDefault().getDisplayLanguage();
         String newPrep = "";
         String newCook = "";
+        // Depends on the user's selected language
         String creatorHelperString = "Created by: ";
         if(displayLanguage.equals("中文")){
             newPrep = "准备时间: " + prepTime + " 分钟.";
@@ -63,9 +63,8 @@ public class SavedRecipeActivity extends AppCompatActivity {
         creatorView.setText(creatorHelperString + creator);
         Glide.with(getApplicationContext()).load(recipeImage).override(108, 108).into(recipeImageView);
 
-
+        // Remove a recipe from the user's saved recipes
         removeRecipe.setOnClickListener(view -> {
-
             if (checkConnection() == false) {
                 Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
             } else {
@@ -87,8 +86,9 @@ public class SavedRecipeActivity extends AppCompatActivity {
         });
     }
 
+    // Used to check the user's Internet connection
     public boolean checkConnection() {
-        boolean isConnected = false;
+        boolean isConnected;
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {

@@ -1,6 +1,5 @@
 package com.example.cookbook;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -11,18 +10,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
@@ -32,23 +25,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText email, username, password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Set view and find Buttons and EditTexts
         Log.i("RegisterActivity", "onCreate has been called for RegisterActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
 
-        registerUser = (Button) findViewById(R.id.home);
+        registerUser = findViewById(R.id.home);
         registerUser.setOnClickListener(this);
 
-        email = (EditText) findViewById(R.id.editTextTextEmailAddress);
-        username = (EditText) findViewById(R.id.editTextTextPersonName);
-        password = (EditText) findViewById(R.id.editTextTextPassword);
+        email = findViewById(R.id.editTextTextEmailAddress);
+        username = findViewById(R.id.editTextTextPersonName);
+        password = findViewById(R.id.editTextTextPassword);
     }
 
     @Override
     public void onClick(View v){
-
+        // Register the user
         if (v.getId() == R.id.home) {
             if (checkConnection() == false) {
                 Toast.makeText(RegisterActivity.this , "No Internet Connection!", Toast.LENGTH_SHORT).show();
@@ -94,12 +88,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
 
-
+        // Use FirebaseAuth to create a User
         mAuth.createUserWithEmailAndPassword(sEmail, sPassword)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        ArrayList<String> savedRecipe = new ArrayList<>();
-                        ArrayList<String> uploadedRecipe = new ArrayList<>();
                         Users user = new Users(sUsername, sEmail);
                         MyDatabase.getDatabase().getReference("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -117,9 +109,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 });
     }
 
-
+    // Used to check the user's Internet connection
     public boolean checkConnection() {
-        boolean isConnected = false;
+        boolean isConnected;
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {

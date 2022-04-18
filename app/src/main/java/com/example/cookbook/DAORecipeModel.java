@@ -13,12 +13,8 @@ public class DAORecipeModel {
         databaseReference = db.getReference(RecipeModel.class.getSimpleName());
     }
 
+    // Adds a particular recipe to the database
     public Task<Void> add(RecipeModel recipeModel) {
         return databaseReference.push().setValue(recipeModel);
     }
-
-    public Task<Void> delete(String key) {
-        return databaseReference.child(key).removeValue();
-    }
-
 }

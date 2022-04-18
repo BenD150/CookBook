@@ -1,7 +1,6 @@
 package com.example.cookbook;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,17 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-import java.net.URI;
 import java.util.ArrayList;
 
 
@@ -76,6 +70,7 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
         return view;
     }
 
+    // Filter the list of recipes depending on the String
     private void filter(String text) {
         ArrayList<RecipeModel> filteredList = new ArrayList<>();
 
@@ -88,13 +83,14 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
     }
 
 
+    // Set up the Recipes using Firebase
     private void setUpRecipeModels() {
-        // establish firebase connection and set a reference point to root node
+        // Establish firebase connection and set a reference point to root node
 
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference savedRecipes = MyDatabase.getDatabase().getReference();
 
-        // go down to RecipeModel child
+        // Go down to RecipeModel child
         mListener = savedRecipes.child("Users").child(currentUserId).child("savedRecipes").addValueEventListener(new ValueEventListener() {
             //this method will be invoked anytime the database be changed
             @Override
@@ -122,6 +118,7 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
 
     @Override
     public void onRecipeClick(int position) {
+        // Use an intent to send recipe data
         Intent intent = new Intent(view.getContext(), SavedRecipeActivity.class);
 
         intent.putExtra("RECIPENAME", adapter.getItem(position).getRecipeName());
@@ -137,6 +134,7 @@ public class SavedFragment extends Fragment implements RecyclerViewInterface{
 
     public void onDestroyView() {
         super.onDestroyView();
+        // Remove the Firebase listener to prevent a memory leak
         MyDatabase.getDatabase().getReference().child("Users").child(currentUserId).child("savedRecipes").removeEventListener(mListener);
     }
 }

@@ -1,11 +1,9 @@
 package com.example.cookbook;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,15 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -70,7 +63,7 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
         return view;
     }
 
-
+    // Filter the list of recipes depending on the String
     private void filter(String text) {
         ArrayList<RecipeModel> filteredList = new ArrayList<>();
         for (RecipeModel recipe: recipeModels) {
@@ -81,7 +74,7 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
         adapter.filterList(filteredList);
     }
 
-
+    // Set up the Recipes using Firebase
     private void setUpRecipeModels() {
         // establish firebase connection and set a reference point to root node
 
@@ -118,6 +111,7 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onRecipeClick(int position) {
+        // Send recipe data
         Intent intent = new Intent(view.getContext(), SearchRecipeActivity.class);
 
         intent.putExtra("RECIPENAME", adapter.getItem(position).getRecipeName());
@@ -134,6 +128,7 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
 
     public void onDestroyView() {
         super.onDestroyView();
+        // Remove the Firebase listener to prevent a memory leak
         MyDatabase.getDatabase().getReference().child("RecipeModel").removeEventListener(mListener);
     }
 }

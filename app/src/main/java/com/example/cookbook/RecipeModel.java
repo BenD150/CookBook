@@ -1,5 +1,5 @@
 package com.example.cookbook;
-
+// Information for each Recipe
 public class RecipeModel {
     String recipeName;
     String prepTime;

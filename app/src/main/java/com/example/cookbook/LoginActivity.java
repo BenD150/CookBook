@@ -1,15 +1,12 @@
 package com.example.cookbook;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -20,14 +17,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    SharedPreferences sharedpreference;
-
+    SharedPreferences sharedPreference;
     private EditText editTextEmail, editTextPass;
-    private Button signIn;
-
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Set View, Buttons, and Authorization
         Log.i("LoginActivity", "onCreate has been called for LoginActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -37,16 +33,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mAuth = FirebaseAuth.getInstance();
 
-        editTextEmail = (EditText) findViewById(R.id.editTextTextEmailAddress2);
-        editTextPass = (EditText) findViewById(R.id.editTextTextPassword2);
+        editTextEmail = findViewById(R.id.editTextTextEmailAddress2);
+        editTextPass = findViewById(R.id.editTextTextPassword2);
         signIn.setOnClickListener(this);
         forgotPW.setOnClickListener(this);
-        sharedpreference= getSharedPreferences("myUserPrefs", Context.MODE_PRIVATE);
+        sharedPreference = getSharedPreferences("myUserPrefs", Context.MODE_PRIVATE);
     }
 
     @Override
     public void onClick(View v){
 
+        // Log the user in
         if (v.getId() == R.id.login2) {
             if (checkConnection() == false) {
                 Toast.makeText(LoginActivity.this , "No Internet Connection!", Toast.LENGTH_SHORT).show();
@@ -56,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
 
+        // Let the user reset their password
         if (v.getId() == R.id.forgotPWBtn) {
             if (checkConnection() == false) {
                 Toast.makeText(LoginActivity.this , "No Internet Connection!", Toast.LENGTH_SHORT).show();
@@ -68,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    // Log the user in
     private void userLogin(){
         String email = editTextEmail.getText().toString().trim();
         String pass = editTextPass.getText().toString().trim();
@@ -92,7 +91,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
-                SharedPreferences.Editor editor = sharedpreference.edit();
+                SharedPreferences.Editor editor = sharedPreference.edit();
                 editor.putString("user_email", email);
                 editor.commit();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
@@ -102,8 +101,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
+    // Used to check the user's Internet connection
     public boolean checkConnection() {
-        boolean isConnected = false;
+        boolean isConnected;
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {

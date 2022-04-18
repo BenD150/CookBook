@@ -26,6 +26,7 @@ public class SearchRecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_recipe);
 
+        // Get information from intent
         String recipeName = getIntent().getStringExtra("RECIPENAME");
         String prepTime = getIntent().getStringExtra("PREPTIME");
         String cookTime = getIntent().getStringExtra("COOKTIME");
@@ -48,6 +49,7 @@ public class SearchRecipeActivity extends AppCompatActivity {
         String newPrep = "";
         String newCook = "";
         String creatorHelperString = "Created by: ";
+        // Depends on the user's selected langauge
         if(displayLanguage.equals("中文")){
             newPrep = "准备时间: " + prepTime + " 分钟.";
             newCook = "烹饪时间: " + cookTime + " 分钟.";
@@ -62,8 +64,8 @@ public class SearchRecipeActivity extends AppCompatActivity {
         creatorView.setText(creatorHelperString + creator);
         Glide.with(getApplicationContext()).load(recipeImage).override(108, 108).into(recipeImageView);
 
+        // Save a recipe to a user's saved recipes
         searchRecipe.setOnClickListener(view -> {
-
             if (checkConnection() == false) {
                 Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
             } else {
@@ -83,9 +85,9 @@ public class SearchRecipeActivity extends AppCompatActivity {
         });
     }
 
-
+    // Used to check the user's Internet connection
     public boolean checkConnection() {
-        boolean isConnected = false;
+        boolean isConnected;
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {

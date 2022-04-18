@@ -1,7 +1,5 @@
 package com.example.cookbook;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -11,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -23,7 +20,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,7 +31,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -43,11 +38,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.ktx.Firebase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -55,8 +47,7 @@ import java.util.UUID;
 @SuppressWarnings("deprecation")
 public class UploadFragment extends Fragment {
 
-    SharedPreferences sharedpreference;
-    int highestID = 0;
+    SharedPreferences sharedPreference;
     String creator;
     private ImageView foodImage;
     public Uri imageUri;
@@ -93,7 +84,6 @@ public class UploadFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -103,9 +93,10 @@ public class UploadFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.i("UploadFragment", "onCreateView has been called for UploadFragment");
+        // Create the view
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_upload, container, false);
-        sharedpreference= getActivity().getApplicationContext().getSharedPreferences("myUserPrefs", Context.MODE_PRIVATE);
+        sharedPreference = getActivity().getApplicationContext().getSharedPreferences("myUserPrefs", Context.MODE_PRIVATE);
         return view;
     }
 
@@ -116,6 +107,7 @@ public class UploadFragment extends Fragment {
         // Open the camera if the add image button is clicked
         Button addPhoto = getActivity().findViewById(R.id.addPhoto);
 
+        // Get camera permission from user
         if (ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this.getActivity(),
                     new String[] {
@@ -123,6 +115,7 @@ public class UploadFragment extends Fragment {
                     }, 100);
         }
 
+        // Get user's permission to read external storage
         if (ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this.getActivity(),
                     new String[] {
@@ -130,6 +123,7 @@ public class UploadFragment extends Fragment {
                     }, 100);
         }
 
+        // Get user's permission to write to external storage
         if (ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this.getActivity(),
                     new String[] {
@@ -137,9 +131,8 @@ public class UploadFragment extends Fragment {
                     }, 100);
         }
 
-
+        // Store the image's URI
         addPhoto.setOnClickListener(view1 -> {
-
             if (checkConnection() == false) {
                 Toast.makeText(getActivity() , "No Internet Connection!", Toast.LENGTH_SHORT).show();
             } else {
@@ -176,6 +169,7 @@ public class UploadFragment extends Fragment {
             if (checkConnection() == false) {
                 Toast.makeText(getActivity() , "No Internet Connection!", Toast.LENGTH_SHORT).show();
             } else {
+                // File name from Firebase storage
                 String totalFile = "https://firebasestorage.googleapis.com/v0/b/cookbook-app-834e9.appspot.com/o/images%2F" + fileName + "?alt=media&token=";
                 RecipeModel newRecipe = new RecipeModel(recipeName.getText().toString(), prepTime.getText().toString(), cookTime.getText().toString(), instrAndSteps.getText().toString(), totalFile, creator, "");
                 dao.add(newRecipe).addOnSuccessListener(success ->
@@ -188,9 +182,7 @@ public class UploadFragment extends Fragment {
                     Toast.makeText(getActivity(), "" + error.getMessage(), Toast.LENGTH_SHORT).show();
                 });
 
-                // Get user's email address and add uploaded recipe to them
-
-                //adds the recipe to the users saved recipes
+                // Adds the recipe to the users saved recipes
                 String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 MyDatabase.getDatabase().getReference().child("Users").child(currentUserId).child("savedRecipes").push().setValue(newRecipe);
             }
@@ -220,6 +212,7 @@ public class UploadFragment extends Fragment {
         }
     }
 
+    // Upload the image, with the help of Firebase Storage
     private void uploadPicture() {
 
         final ProgressDialog pd = new ProgressDialog(getActivity());
@@ -248,8 +241,9 @@ public class UploadFragment extends Fragment {
                 });
     }
 
+    // Used to check the user's Internet connection
     public boolean checkConnection() {
-        boolean isConnected = false;
+        boolean isConnected;
         ConnectivityManager connectivityManager = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
