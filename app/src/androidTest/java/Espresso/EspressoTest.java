@@ -27,6 +27,7 @@ import org.junit.runners.MethodSorters;
 
 public class EspressoTest {
 
+    // Logs in with valid credentials which utilizes FirebaseAuth
     @Test
     public void firstLogInWithValidCredentials() {
 
@@ -48,6 +49,7 @@ public class EspressoTest {
         ViewMatchers.withId(R.id.button_upload).matches(isClickable());
     }
 
+    // Ensures that a new recipe can be uploaded to Firebase
     @Test
     public void secondAddFirebaseRecipe() {
 
@@ -69,6 +71,7 @@ public class EspressoTest {
         onView(ViewMatchers.withId(R.id.createRecipe)).perform(ViewActions.click());
     }
 
+    // Ensures that a recipe can be removed from a user's saved recipes
     @Test
     public void thirdRemoveSavedRecipe() {
 
