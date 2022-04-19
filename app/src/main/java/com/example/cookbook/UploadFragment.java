@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -135,8 +136,9 @@ public class UploadFragment extends Fragment {
         addPhoto.setOnClickListener(view1 -> {
             if (checkConnection() == false) {
                 Toast.makeText(getActivity() , "No Internet Connection!", Toast.LENGTH_SHORT).show();
+            } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                Toast.makeText(getActivity() , "Rotate Your Phone to Portrait Orientation!", Toast.LENGTH_SHORT).show();
             } else {
-
                 String fileName = UUID.randomUUID().toString();
                 ;
                 ContentValues values = new ContentValues();
