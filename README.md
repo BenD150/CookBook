@@ -1,5 +1,6 @@
 # CookBook
 CookBook Application for CSE 5236 - Mobile Apps
+
 Created by: Ben Dollenmayer, Daqian Zuo, and Max Hathaway 
 
 ## What is CookBook?
