@@ -36,9 +36,9 @@ public class ForgotPWActivity extends AppCompatActivity {
                 // Send the user an email to reset password
                 auth.sendPasswordResetEmail(emailAddress).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(ForgotPWActivity.this, "Forgot Password Email Sent!", Toast.LENGTH_SHORT);
+                        Toast.makeText(ForgotPWActivity.this, "Forgot Password Email Sent!", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(ForgotPWActivity.this, "Email Failed to Send!", Toast.LENGTH_SHORT);
+                        Toast.makeText(ForgotPWActivity.this, "Email Failed to Send!", Toast.LENGTH_SHORT).show();
                     }
                 });
 
